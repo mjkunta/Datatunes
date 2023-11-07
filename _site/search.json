@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "posts/we_are_live/index.html",
+    "href": "posts/we_are_live/index.html",
+    "title": "We are live!",
+    "section": "",
+    "text": "Look at me, I have a blog. I didn’t even break a sweat creating this. To Quarto creators, thank you!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+  },
+  {
+    "objectID": "posts/post-with-code/index.html",
+    "href": "posts/post-with-code/index.html",
+    "title": "Post With Code",
+    "section": "",
+    "text": "This is a post with executable code.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "Mj website",
+    "section": "",
+    "text": "Renaming Columns with Python\n\n\n\n\n\n\n\n\n\n\n\n\nNov 6, 2023\n\n\nMaangi Josiah\n\n\n\n\n\n\n  \n\n\n\n\nPost With Code\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nNov 5, 2023\n\n\nMaangi Josiah\n\n\n\n\n\n\n  \n\n\n\n\nWe are live!\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nNov 2, 2023\n\n\nMaangi Josiah\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "About",
+    "section": "",
+    "text": "About this blog"
+  },
+  {
+    "objectID": "posts/Renaming Columns/index.html",
+    "href": "posts/Renaming Columns/index.html",
+    "title": "Renaming Columns with Python",
+    "section": "",
+    "text": "Import the required libraries\n\nimport pandas as pd\n\n\n\ncreate a simple supplier information dataframe\n\ndata = {\n    'company name': ['Flex Ltd', 'Abbep Inc', 'Tesla'],\n    'vendor number': [4500, 5056, 6456],\n    'unit': ['Koln', 'Ontario', 'Texas']\n}\n\nsupplier_df = pd.DataFrame(data)\n\n\n\nmake a copy of supplier_df\n\nsupplier_df_copy = supplier_df.copy()\n\n\n\nrename columns\n\ncompanyname to Supplier Name,\n\n\nvendor number to Supplier Number,\n\n\nunit to Business Unit\n\nsupplier_df_copy.rename(columns = {'company name': 'Supplier Name'}, inplace = True)\n\n\n\n\nrename multiple columns at once\n\nsupplier_df_copy.rename(columns = {'vendor number':'Supplier number', 'unit': 'Business Unit'}, inplace = True)\n\n\n\nrename by assigning new column name, works if you are about the order\n\ndf = supplier_df.copy()\n#df.columns = ['Business Unit','Supplier Name', 'Supplier Number']\n\n\n\nCreate a dictionary of column mappings from an excel/csv file\n\nmapping = pd.read_excel(r\"C:\\Users\\ADMIN\\Downloads\\col_mapping.xlsx\")\n\ncol_mapping_dict = mapping.set_index('client')['assent'].to_dict()\n\n\n\nRename using provided column mappings\n\ndf.rename(columns = col_mapping_dict, inplace = True)"
+  }
+]
