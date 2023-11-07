@@ -1,0 +1,11 @@
+{
+  "hash": "a1e88bb361703202b04f51df02607030",
+  "result": {
+    "markdown": "---\ntitle: \"Renaming Columns in Python\"\nformat: html\nauthor: Maangi Josiah\ndate: 11-06-2023\n---\n\n# import the required libraries\n\n::: {.cell execution_count=1}\n``` {.python .cell-code}\nimport pandas as pd\n```\n:::\n\n\n# create a simple supplier information dataframe\n\n::: {.cell execution_count=2}\n``` {.python .cell-code}\ndata = {\n    'company name': ['Flex Ltd', 'Abbep Inc', 'Tesla'],\n    'vendor number': [4500, 5056, 6456],\n    'unit': ['Koln', 'Ontario', 'Texas']\n}\n\nsupplier_df = pd.DataFrame(data)\n```\n:::\n\n\n# make a copy of supplier_df\n\n::: {.cell execution_count=3}\n``` {.python .cell-code}\nsupplier_df_copy = supplier_df.copy()\n```\n:::\n\n\n# rename columns \n## companyname to Supplier Name, \n## vendor number to Supplier Number, \n## unit to Business Unit\n\n::: {.cell execution_count=4}\n``` {.python .cell-code}\nsupplier_df_copy.rename(columns = {'company name': 'Supplier Name'}, inplace = True)\n```\n:::\n\n\n# rename multiple columns at once\n\n::: {.cell execution_count=5}\n``` {.python .cell-code}\nsupplier_df_copy.rename(columns = {'vendor number':'Supplier number', 'unit': 'Business Unit'}, inplace = True)\n```\n:::\n\n\n# rename by assigning new column name, works if you are about the order\n\n::: {.cell execution_count=6}\n``` {.python .cell-code}\ndf = supplier_df.copy()\n#df.columns = ['Business Unit','Supplier Name', 'Supplier Number']\n```\n:::\n\n\n# Create a dictionary of column mappings from an excel/csv file\n\n::: {.cell execution_count=7}\n``` {.python .cell-code}\nmapping = pd.read_excel(r\"C:\\Users\\ADMIN\\Downloads\\col_mapping.xlsx\")\n\ncol_mapping_dict = mapping.set_index('client')['assent'].to_dict()\n```\n:::\n\n\n# Rename using provided column mappings\n\n::: {.cell execution_count=8}\n``` {.python .cell-code}\ndf.rename(columns = col_mapping_dict, inplace = True)\n```\n:::\n\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

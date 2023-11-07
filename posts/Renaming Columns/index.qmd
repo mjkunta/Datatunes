@@ -1,0 +1,59 @@
+---
+title: "Renaming Columns with Python"
+format: html
+author: Maangi Josiah
+date: 11-06-2023
+---
+
+### Import the required libraries
+```{python eval = FALSE}
+import pandas as pd
+```
+
+### create a simple supplier information dataframe
+```{python}
+data = {
+    'company name': ['Flex Ltd', 'Abbep Inc', 'Tesla'],
+    'vendor number': [4500, 5056, 6456],
+    'unit': ['Koln', 'Ontario', 'Texas']
+}
+
+supplier_df = pd.DataFrame(data)
+```
+
+### make a copy of supplier_df
+```{python}
+supplier_df_copy = supplier_df.copy()
+```
+
+### rename columns 
+#### companyname to Supplier Name, 
+#### vendor number to Supplier Number, 
+#### unit to Business Unit
+
+```{python}
+supplier_df_copy.rename(columns = {'company name': 'Supplier Name'}, inplace = True)
+```
+
+### rename multiple columns at once
+```{python}
+supplier_df_copy.rename(columns = {'vendor number':'Supplier number', 'unit': 'Business Unit'}, inplace = True)
+```
+
+### rename by assigning new column name, works if you are about the order
+```{python}
+df = supplier_df.copy()
+#df.columns = ['Business Unit','Supplier Name', 'Supplier Number']
+```
+
+### Create a dictionary of column mappings from an excel/csv file
+```{python}
+mapping = pd.read_excel(r"C:\Users\ADMIN\Downloads\col_mapping.xlsx")
+
+col_mapping_dict = mapping.set_index('client')['assent'].to_dict()
+```
+
+### Rename using provided column mappings
+```{python}
+df.rename(columns = col_mapping_dict, inplace = True)
+```
