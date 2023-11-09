@@ -1,5 +1,5 @@
 ---
-title: "Mj website"
+title: "Datatunes"
 listing:
   contents: posts
   sort: "date desc"
