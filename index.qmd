@@ -17,4 +17,4 @@ about:
 
 Hello, I'm Maangi Josiah and a data addict.
 
-I'm a Finance graduate from the University of Nairobi, Kenya with an appetite for data tools. Like most analysts, I draw my dopamine from utilizing SQL, R, and some Python. In this blog, I chronicle my data journey, sharing simple yet invaluable tricks I have encountered along the way.
+I'm a Finance graduate from the University of Nairobi, Kenya with an appetite for data tools. Like most analysts, I draw my dopamine from utilizing SQL, R, Power BI, and some Python. In this blog, I chronicle my data journey, sharing simple yet invaluable tricks I have encountered along the way. I have an obvious bias for R & SQL.
