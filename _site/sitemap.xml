@@ -2,6 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://mj-datatunes.com/index.html</loc>
-    <lastmod>2023-11-15T09:34:52.728Z</lastmod>
+    <lastmod>2023-11-15T11:11:42.945Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mj-datatunes.com/blog.html</loc>
+    <lastmod>2023-11-15T11:12:41.380Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mj-datatunes.com/posts/Renaming Columns/index.html</loc>
+    <lastmod>2023-11-15T11:11:18.062Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mj-datatunes.com/posts/post-with-code/index.html</loc>
+    <lastmod>2023-11-15T11:12:04.545Z</lastmod>
   </url>
 </urlset>
