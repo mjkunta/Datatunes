@@ -3,6 +3,7 @@ project:
 
 website:
   title: "Datatunes"
+  site-url: https://mj-datatunes.com
   navbar:
     right:
       - text: About
@@ -13,6 +14,10 @@ website:
         href: https://github.com/
       - icon: twitter
         href: https://twitter.com
+        
+google-analytics: G-L00JHD3B47
+cookie-consent: true
+
 format:
   html:
     theme: cosmo
