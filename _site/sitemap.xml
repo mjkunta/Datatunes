@@ -6,11 +6,11 @@
   </url>
   <url>
     <loc>https://mj-datatunes.com/blog.html</loc>
-    <lastmod>2023-11-16T12:16:37.983Z</lastmod>
+    <lastmod>2023-11-16T20:38:57.513Z</lastmod>
   </url>
   <url>
     <loc>https://mj-datatunes.com/posts/Renaming Columns/index.html</loc>
-    <lastmod>2023-11-16T14:03:46.565Z</lastmod>
+    <lastmod>2023-11-16T20:05:05.738Z</lastmod>
   </url>
   <url>
     <loc>https://mj-datatunes.com/posts/post-with-code/index.html</loc>
@@ -19,5 +19,9 @@
   <url>
     <loc>https://mj-datatunes.com/posts/we_are_live/index.html</loc>
     <lastmod>2023-11-15T19:13:58.302Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mj-datatunes.com/posts/Combining CSV and Excel files in R/index.html</loc>
+    <lastmod>2023-11-16T20:38:56.754Z</lastmod>
   </url>
 </urlset>

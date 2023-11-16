@@ -2,6 +2,7 @@
 title: "Renaming Columns with Python Dictionaries"
 format: html
 author: Maangi Josiah
+categories: [Python]
 date: 11-06-2023
 ---
 

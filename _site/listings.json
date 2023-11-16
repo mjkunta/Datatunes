@@ -2,8 +2,8 @@
   {
     "listing": "/blog.html",
     "items": [
+      "/posts/Combining CSV and Excel files in R/index.html",
       "/posts/Renaming Columns/index.html",
-      "/posts/post-with-code/index.html",
       "/posts/we_are_live/index.html"
     ]
   }
