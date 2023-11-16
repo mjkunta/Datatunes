@@ -98,7 +98,7 @@ renamed_df = customer_df.copy()
 renamed_df.rename(columns = col_mapping_dict, inplace = True)
 ```
 
-Here is a view of our customer df vs our renamed df.
+Here is a view of our customer_df vs our renamed_df.
 
 ```{python}
 
