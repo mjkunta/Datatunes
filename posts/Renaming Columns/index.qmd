@@ -1,59 +1,119 @@
 ---
-title: "Renaming Columns with Python"
+title: "Renaming Columns with Python Dictionaries"
 format: html
 author: Maangi Josiah
 date: 11-06-2023
 ---
 
-### Import the required libraries
+#### **Import the required libraries**
+
 ```{python eval = FALSE}
 import pandas as pd
+import os
 ```
 
-### create a simple supplier information dataframe
+#### **Create a simple customer information data-frame**
+
 ```{python}
 data = {
-    'company name': ['Flex Ltd', 'Abbep Inc', 'Tesla'],
-    'vendor number': [4500, 5056, 6456],
-    'unit': ['Koln', 'Ontario', 'Texas']
+    'given name': ['Josiah', 'Fred', 'Julie'],
+    'family name': ['Maangi', 'Juma', 'Musau'],
+    'phone':[25471234, 25472345,25473456],
+    'email': ['josiah@gml.com', 'fred@gml.com','julie@gml.com'],
+    'sex': ['M','M','F'],
+    'town': ['Nairobi', 'Kisumu', 'Mombasa']
 }
 
-supplier_df = pd.DataFrame(data)
+customer_df = pd.DataFrame(data)
 ```
 
-### make a copy of supplier_df
+Here is how our small data-frame looks:
+
 ```{python}
-supplier_df_copy = supplier_df.copy()
+customer_df
 ```
 
-### rename columns 
-#### companyname to Supplier Name, 
-#### vendor number to Supplier Number, 
-#### unit to Business Unit
+#### **Make a copy of customer_df**
 
 ```{python}
-supplier_df_copy.rename(columns = {'company name': 'Supplier Name'}, inplace = True)
+customer_df_copy = customer_df.copy()
 ```
 
-### rename multiple columns at once
+#### **How I want to Rename my columns**
+
+I will rename my columns as below:
+
+-   *given name* to *First Name*
+-   *family name* to *Last Name*
+-   *town* to *City*
+
+#### **Rename a single column**
+
+To rename columns, we use the rename function from pandas as follows.
+
+The column we want to rename(given name) will be on the left, and the new name we want to assign to this column(Family Name) will be on the right. The two names should be separated by a colon.
+
+The *inplace = True* argument means this change happen with our customer_df_copy.
+
 ```{python}
-supplier_df_copy.rename(columns = {'vendor number':'Supplier number', 'unit': 'Business Unit'}, inplace = True)
+customer_df_copy.rename(columns = {'given name': 'Family Name'}, inplace = True)
 ```
 
-### rename by assigning new column name, works if you are about the order
+#### **Rename multiple columns at once**
+
 ```{python}
-df = supplier_df.copy()
-#df.columns = ['Business Unit','Supplier Name', 'Supplier Number']
+customer_df_copy.rename(columns = {'given name': 'Family Name', 'town': 'City'}, inplace = True)
 ```
 
-### Create a dictionary of column mappings from an excel/csv file
+#### **Create a dictionary of column mappings from an excel/csv file**
+
+Imagine a scenario where you have to rename about 15 columns every time you receive files from a given customers. Using the above approach is not only manual but prone to errors. Since this is a repetitive process;
+
+-   I will create a file with customer - company column mappings,
+
+-   convert it into a dictionary, and
+
+-   use it to rename files as below.
+
+![*client to company column mapping*](images/col_mappings-01.png){width="558"}
+
+Code
+
 ```{python}
+# reading in my column mapping file
 mapping = pd.read_excel(r"C:\Users\ADMIN\Downloads\col_mapping.xlsx")
 
-col_mapping_dict = mapping.set_index('client')['assent'].to_dict()
+# creating a data dictionary
+col_mapping_dict = mapping.set_index('customer_details')['company_mapping'].to_dict()
 ```
 
-### Rename using provided column mappings
+#### **Rename using provided column mappings**
+
 ```{python}
-df.rename(columns = col_mapping_dict, inplace = True)
+# I will make a copy of my customer_df again
+renamed_df = customer_df.copy()
+
+#then rename it
+renamed_df.rename(columns = col_mapping_dict, inplace = True)
+```
+
+Here is a view of our customer df vs our renamed df.
+
+```{python}
+
+#| echo: false
+#| label: tbl-example
+#| tbl-cap: "Master to renamed"
+#| tbl-subcap:
+#|    - "customer_df"
+#|    - "renamed_df"
+#| layout-ncol: 2
+
+# view of our customer_df and renamed_df
+
+from IPython.display import Markdown, display
+
+display(Markdown(customer_df.to_markdown(index = False)))
+display(Markdown(renamed_df.to_markdown(index = False)))
+
 ```

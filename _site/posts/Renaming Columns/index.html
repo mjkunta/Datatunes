@@ -9,7 +9,7 @@
 <meta name="author" content="Maangi Josiah">
 <meta name="dcterms.date" content="2023-11-06">
 
-<title>Datatunes - Renaming Columns with Python</title>
+<title>Datatunes - Renaming Columns with Python Dictionaries</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -95,6 +95,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="../../styles.css">
@@ -146,7 +149,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Renaming Columns with Python</h1>
+      <h1 class="title">Renaming Columns with Python Dictionaries</h1>
                       </div>
   </div>
     
@@ -181,70 +184,247 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="import-the-required-libraries" class="level3">
-<h3 class="anchored" data-anchor-id="import-the-required-libraries">Import the required libraries</h3>
+<section id="import-the-required-libraries" class="level4">
+<h4 class="anchored" data-anchor-id="import-the-required-libraries"><strong>Import the required libraries</strong></h4>
 <div class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="create-a-simple-supplier-information-dataframe" class="level3">
-<h3 class="anchored" data-anchor-id="create-a-simple-supplier-information-dataframe">create a simple supplier information dataframe</h3>
+<section id="create-a-simple-customer-information-data-frame" class="level4">
+<h4 class="anchored" data-anchor-id="create-a-simple-customer-information-data-frame"><strong>Create a simple customer information data-frame</strong></h4>
 <div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> {</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'company name'</span>: [<span class="st">'Flex Ltd'</span>, <span class="st">'Abbep Inc'</span>, <span class="st">'Tesla'</span>],</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'vendor number'</span>: [<span class="dv">4500</span>, <span class="dv">5056</span>, <span class="dv">6456</span>],</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'unit'</span>: [<span class="st">'Koln'</span>, <span class="st">'Ontario'</span>, <span class="st">'Texas'</span>]</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>supplier_df <span class="op">=</span> pd.DataFrame(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'given name'</span>: [<span class="st">'Josiah'</span>, <span class="st">'Fred'</span>, <span class="st">'Julie'</span>],</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'family name'</span>: [<span class="st">'Maangi'</span>, <span class="st">'Juma'</span>, <span class="st">'Musau'</span>],</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'phone'</span>:[<span class="dv">25471234</span>, <span class="dv">25472345</span>,<span class="dv">25473456</span>],</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'email'</span>: [<span class="st">'josiah@gml.com'</span>, <span class="st">'fred@gml.com'</span>,<span class="st">'julie@gml.com'</span>],</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'sex'</span>: [<span class="st">'M'</span>,<span class="st">'M'</span>,<span class="st">'F'</span>],</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'town'</span>: [<span class="st">'Nairobi'</span>, <span class="st">'Kisumu'</span>, <span class="st">'Mombasa'</span>]</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>customer_df <span class="op">=</span> pd.DataFrame(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="make-a-copy-of-supplier_df" class="level3">
-<h3 class="anchored" data-anchor-id="make-a-copy-of-supplier_df">make a copy of supplier_df</h3>
+<p>Here is how our small data-frame looks:</p>
 <div class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>supplier_df_copy <span class="op">=</span> supplier_df.copy()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>customer_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">given name</th>
+<th data-quarto-table-cell-role="th">family name</th>
+<th data-quarto-table-cell-role="th">phone</th>
+<th data-quarto-table-cell-role="th">email</th>
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">town</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Josiah</td>
+<td>Maangi</td>
+<td>25471234</td>
+<td>josiah@gml.com</td>
+<td>M</td>
+<td>Nairobi</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Fred</td>
+<td>Juma</td>
+<td>25472345</td>
+<td>fred@gml.com</td>
+<td>M</td>
+<td>Kisumu</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Julie</td>
+<td>Musau</td>
+<td>25473456</td>
+<td>julie@gml.com</td>
+<td>F</td>
+<td>Mombasa</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 </section>
-<section id="rename-columns" class="level3">
-<h3 class="anchored" data-anchor-id="rename-columns">rename columns</h3>
-<section id="companyname-to-supplier-name" class="level4">
-<h4 class="anchored" data-anchor-id="companyname-to-supplier-name">companyname to Supplier Name,</h4>
-</section>
-<section id="vendor-number-to-supplier-number" class="level4">
-<h4 class="anchored" data-anchor-id="vendor-number-to-supplier-number">vendor number to Supplier Number,</h4>
-</section>
-<section id="unit-to-business-unit" class="level4">
-<h4 class="anchored" data-anchor-id="unit-to-business-unit">unit to Business Unit</h4>
+<section id="make-a-copy-of-customer_df" class="level4">
+<h4 class="anchored" data-anchor-id="make-a-copy-of-customer_df"><strong>Make a copy of customer_df</strong></h4>
 <div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>supplier_df_copy.rename(columns <span class="op">=</span> {<span class="st">'company name'</span>: <span class="st">'Supplier Name'</span>}, inplace <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>customer_df_copy <span class="op">=</span> customer_df.copy()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
+<section id="how-i-want-to-rename-my-columns" class="level4">
+<h4 class="anchored" data-anchor-id="how-i-want-to-rename-my-columns"><strong>How I want to Rename my columns</strong></h4>
+<p>I will rename my columns as below:</p>
+<ul>
+<li><em>given name</em> to <em>First Name</em></li>
+<li><em>family name</em> to <em>Last Name</em></li>
+<li><em>town</em> to <em>City</em></li>
+</ul>
 </section>
-<section id="rename-multiple-columns-at-once" class="level3">
-<h3 class="anchored" data-anchor-id="rename-multiple-columns-at-once">rename multiple columns at once</h3>
+<section id="rename-a-single-column" class="level4">
+<h4 class="anchored" data-anchor-id="rename-a-single-column"><strong>Rename a single column</strong></h4>
+<p>To rename columns, we use the rename function from pandas as follows.</p>
+<p>The column we want to rename(given name) will be on the left, and the new name we want to assign to this column(Family Name) will be on the right. The two names should be separated by a colon.</p>
+<p>The <em>inplace = True</em> argument means this change happen with our customer_df_copy.</p>
 <div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>supplier_df_copy.rename(columns <span class="op">=</span> {<span class="st">'vendor number'</span>:<span class="st">'Supplier number'</span>, <span class="st">'unit'</span>: <span class="st">'Business Unit'</span>}, inplace <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>customer_df_copy.rename(columns <span class="op">=</span> {<span class="st">'given name'</span>: <span class="st">'Family Name'</span>}, inplace <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="rename-by-assigning-new-column-name-works-if-you-are-about-the-order" class="level3">
-<h3 class="anchored" data-anchor-id="rename-by-assigning-new-column-name-works-if-you-are-about-the-order">rename by assigning new column name, works if you are about the order</h3>
+<section id="rename-multiple-columns-at-once" class="level4">
+<h4 class="anchored" data-anchor-id="rename-multiple-columns-at-once"><strong>Rename multiple columns at once</strong></h4>
 <div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> supplier_df.copy()</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#df.columns = ['Business Unit','Supplier Name', 'Supplier Number']</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>customer_df_copy.rename(columns <span class="op">=</span> {<span class="st">'given name'</span>: <span class="st">'Family Name'</span>, <span class="st">'town'</span>: <span class="st">'City'</span>}, inplace <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="create-a-dictionary-of-column-mappings-from-an-excelcsv-file" class="level3">
-<h3 class="anchored" data-anchor-id="create-a-dictionary-of-column-mappings-from-an-excelcsv-file">Create a dictionary of column mappings from an excel/csv file</h3>
+<section id="create-a-dictionary-of-column-mappings-from-an-excelcsv-file" class="level4">
+<h4 class="anchored" data-anchor-id="create-a-dictionary-of-column-mappings-from-an-excelcsv-file"><strong>Create a dictionary of column mappings from an excel/csv file</strong></h4>
+<p>Imagine a scenario where you have to rename about 15 columns every time you receive files from a given customers. Using the above approach is not only manual but prone to errors. Since this is a repetitive process;</p>
+<ul>
+<li><p>I will create a file with customer - company column mappings,</p></li>
+<li><p>convert it into a dictionary, and</p></li>
+<li><p>use it to rename files as below.</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/col_mappings-01.png" class="img-fluid figure-img" width="558"></p>
+<figcaption class="figure-caption"><em>client to company column mapping</em></figcaption>
+</figure>
+</div>
+<p>Code</p>
 <div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mapping <span class="op">=</span> pd.read_excel(<span class="vs">r"C:\Users\ADMIN\Downloads\col_mapping.xlsx"</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>col_mapping_dict <span class="op">=</span> mapping.set_index(<span class="st">'client'</span>)[<span class="st">'assent'</span>].to_dict()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># reading in my column mapping file</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>mapping <span class="op">=</span> pd.read_excel(<span class="vs">r"C:\Users\ADMIN\Downloads\col_mapping.xlsx"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># creating a data dictionary</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>col_mapping_dict <span class="op">=</span> mapping.set_index(<span class="st">'customer_details'</span>)[<span class="st">'company_mapping'</span>].to_dict()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="rename-using-provided-column-mappings" class="level3">
-<h3 class="anchored" data-anchor-id="rename-using-provided-column-mappings">Rename using provided column mappings</h3>
+<section id="rename-using-provided-column-mappings" class="level4">
+<h4 class="anchored" data-anchor-id="rename-using-provided-column-mappings"><strong>Rename using provided column mappings</strong></h4>
 <div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df.rename(columns <span class="op">=</span> col_mapping_dict, inplace <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># I will make a copy of my customer_df again</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>renamed_df <span class="op">=</span> customer_df.copy()</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#then rename it</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>renamed_df.rename(columns <span class="op">=</span> col_mapping_dict, inplace <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tbl-example" class="cell tbl-parent quarto-layout-panel anchored" data-execution_count="9">
+<div class="panel-caption table-caption">
+<p>Table&nbsp;1: Master to renamed</p>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div id="tbl-example-1" class="quarto-layout-cell quarto-layout-cell-subref anchored" data-ref-parent="tbl-example" style="flex-basis: 50.0%;justify-content: center;">
+<table class="table table-sm table-striped small">
+<caption>(a) customer_df</caption>
+<colgroup>
+<col style="width: 19%">
+<col style="width: 21%">
+<col style="width: 14%">
+<col style="width: 22%">
+<col style="width: 9%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">given name</th>
+<th style="text-align: left;">family name</th>
+<th style="text-align: right;">phone</th>
+<th style="text-align: left;">email</th>
+<th style="text-align: left;">sex</th>
+<th style="text-align: left;">town</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Josiah</td>
+<td style="text-align: left;">Maangi</td>
+<td style="text-align: right;">25471234</td>
+<td style="text-align: left;">josiah@gml.com</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Nairobi</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fred</td>
+<td style="text-align: left;">Juma</td>
+<td style="text-align: right;">25472345</td>
+<td style="text-align: left;">fred@gml.com</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kisumu</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Julie</td>
+<td style="text-align: left;">Musau</td>
+<td style="text-align: right;">25473456</td>
+<td style="text-align: left;">julie@gml.com</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Mombasa</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tbl-example-2" class="quarto-layout-cell quarto-layout-cell-subref anchored" data-ref-parent="tbl-example" style="flex-basis: 50.0%;justify-content: center;">
+<table class="table table-sm table-striped small">
+<caption>(b) renamed_df</caption>
+<colgroup>
+<col style="width: 18%">
+<col style="width: 17%">
+<col style="width: 16%">
+<col style="width: 22%">
+<col style="width: 13%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">First Name</th>
+<th style="text-align: left;">Last Name</th>
+<th style="text-align: right;">Phone No</th>
+<th style="text-align: left;">Email address</th>
+<th style="text-align: left;">Gender</th>
+<th style="text-align: left;">City</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Josiah</td>
+<td style="text-align: left;">Maangi</td>
+<td style="text-align: right;">25471234</td>
+<td style="text-align: left;">josiah@gml.com</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Nairobi</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fred</td>
+<td style="text-align: left;">Juma</td>
+<td style="text-align: right;">25472345</td>
+<td style="text-align: left;">fred@gml.com</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kisumu</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Julie</td>
+<td style="text-align: left;">Musau</td>
+<td style="text-align: right;">25473456</td>
+<td style="text-align: left;">julie@gml.com</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Mombasa</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 
 
