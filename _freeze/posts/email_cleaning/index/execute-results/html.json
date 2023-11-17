@@ -1,0 +1,14 @@
+{
+  "hash": "d66f10643d439f66e829cf33f5123c1d",
+  "result": {
+    "markdown": "---\ntitle: \"Email Cleaning\"\n---\n\n\nThis how to do it.\n\n\n::: {.cell}\n\n```{.r .cell-code}\n2 + 2\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] 4\n```\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
