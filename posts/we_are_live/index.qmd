@@ -7,10 +7,10 @@ categories: [news]
 
 Earlier this year, I wanted to start my data blog. My goals were clear, use it as repository to record what I have learnt so far and by writing, I will reinforce my understanding of the concepts. Since I had no intention of buliding a website from scratch, I had a popular website builder in mind. But the huddle was, how do I publish my documents from RStudio or VS code straight to my website.
 
-Enters Quarto. If you have you used RMarkdown, then you know how easy it is to create a publication ready document. Quarto does this and supports multiple languages. The magic? You can create a fully functional blog website in just 15 minutes with Quarto. Now, whether I'm writing R, Python, or SQL documents, I can effortlessly commit them to my GitHub repository, and like clockwork, Netlify swoops in to pick up the updates and publish them on my website. Easy!
+Enters Quarto. If you have you used RMarkdown, then you know how convenient it is to create a publication ready document. Quarto does this and supports multiple languages. The magic? You can create a fully functional blog website in just 15 minutes with Quarto. Now, whether I'm writing R, Python, or SQL documents, I can effortlessly commit them to my GitHub repository, and like clockwork, Netlify swoops in to pick up the updates and publish them on my website. Easy!
 
 If this intrigues you, [Albert Rapp](https://albert-rapp.de/posts/13_quarto_blog_writing_guide/13_quarto_blog_writing_guide.html) has a very detailed guide on building a blog website with Quarto. If you want to set it up quickly, [Beatriz](https://beamilz.com/posts/2022-06-05-creating-a-blog-with-quarto/en/) has a quick and easy to follow guide. I used both, and my website is still in the works as I try to customize it further.
 
-We are live buana, to Quarto creators, thank you!
+We are live buana, to Quarto creators, Thank You!
 
 ![](thumbnail.jpg)
