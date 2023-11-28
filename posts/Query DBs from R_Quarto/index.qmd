@@ -3,6 +3,7 @@ title: "Query MS SQL and PostgreSQL from R/Quarto"
 format: html
 editor: visual
 date: 2023-11-27
+categories: [R,Quarto, MS SQL, PostegreSQL]
 title-block-banner: false
 ---
 
@@ -70,9 +71,10 @@ In the SQL code chunk section, assign your connection variable to the connection
 And then run your query as below.
 
 ```{sql connection = mssql_con}
+
 SELECT
-         Gender
-        ,Country
+         COALESCE(Gender, 'Employees') AS Gender
+        ,COALESCE(Country, 'Total') AS Country
         ,COUNT(Full_Name) AS Employee_Counts
 FROM 
         Employee_Info AS EI
@@ -92,13 +94,13 @@ You can achieve this by passing a variable name to the output.var option in the 
 
 ![](output.var.png){fig-align="left"}
 
-And then run you query. The query output will be saved as employee_df and it will be one of the variables in your environment window in RStudio.
+And then run your query. The query output will be saved as employee_gender_per_ctry and it will be one of the variables in your environment window in RStudio.
 
 ```{sql connection = mssql_con, output.var = 'employee_gender_per_ctry'}
 
 SELECT
-         Gender
-        ,Country
+         COALESCE(Gender, 'Employees in') AS Gender
+        ,COALESCE(Country, 'all countries') AS Country
         ,COUNT(Full_Name) AS Employee_Counts
 FROM 
         Employee_Info AS EI
