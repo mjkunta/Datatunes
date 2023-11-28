@@ -2,11 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://mj-datatunes.com/index.html</loc>
-    <lastmod>2023-11-16T11:18:22.316Z</lastmod>
+    <lastmod>2023-11-28T15:58:18.752Z</lastmod>
   </url>
   <url>
     <loc>https://mj-datatunes.com/blog.html</loc>
-    <lastmod>2023-11-17T17:04:52.129Z</lastmod>
+    <lastmod>2023-11-28T16:26:15.263Z</lastmod>
   </url>
   <url>
     <loc>https://mj-datatunes.com/posts/Renaming Columns/index.html</loc>
@@ -18,7 +18,7 @@
   </url>
   <url>
     <loc>https://mj-datatunes.com/posts/we_are_live/index.html</loc>
-    <lastmod>2023-11-17T17:04:53.181Z</lastmod>
+    <lastmod>2023-11-28T14:46:07.918Z</lastmod>
   </url>
   <url>
     <loc>https://mj-datatunes.com/posts/Combining CSV and Excel files in R/index.html</loc>
@@ -27,5 +27,13 @@
   <url>
     <loc>https://mj-datatunes.com/posts/email_cleaning/index.html</loc>
     <lastmod>2023-11-17T10:17:41.937Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mj-datatunes.com/posts/Query DBs from R_Quarto/index.html</loc>
+    <lastmod>2023-11-28T14:55:14.566Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mj-datatunes.com/cv.html</loc>
+    <lastmod>2023-11-28T16:39:25.822Z</lastmod>
   </url>
 </urlset>

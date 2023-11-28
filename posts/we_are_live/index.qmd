@@ -3,7 +3,9 @@ title: "We are live Buana!"
 author: "Maangi Josiah"
 date: "2023-11-02"
 categories: [news]
+title-block-banner: false
 ---
+
 
 Earlier this year, I wanted to start my data blog. My goals were clear, use it as repository to record what I have learnt so far and by writing, I will reinforce my understanding of the concepts. Since I had no intention of buliding a website from scratch, I had a popular website builder in mind. But the huddle was, how do I publish my documents from RStudio or VS code straight to my website.
 
@@ -13,4 +15,4 @@ If this intrigues you, [Albert Rapp](https://albert-rapp.de/posts/13_quarto_blog
 
 We are live buana, to Quarto creators, Thank You!
 
-![](thumbnail.jpg)
+![](mood.jpg)

@@ -10,10 +10,11 @@ website:
         href: index.qmd
       - text: Blog
         href: blog.qmd
+      - text: CV
+        href: cv.qmd
       - icon: github
         href: https://github.com/
-      - icon: twitter
-        href: https://twitter.com
+      
         
 google-analytics: G-L00JHD3B47
 cookie-consent: true
