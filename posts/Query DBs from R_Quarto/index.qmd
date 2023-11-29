@@ -55,7 +55,7 @@ Once the above code runs, the connection will be established and it will be disp
 
 #### **Querying MS SQL Server**
 
-Of course we can query from an R code chunk as below using dbGetQuery(). But let's focus on how to do this froma sql code chunk.
+Of course we can query from an R code chunk as below using dbGetQuery().
 
 ```{r}
 
@@ -64,11 +64,20 @@ query <- 'SELECT TOP 5 Full_Name, Age, Gender FROM Employee_Info'
 employees_df <- DBI::dbGetQuery(mssql_con, query)
 ```
 
-In the SQL code chunk section, assign your connection variable to the connection parameter.
+But let's focus on how to do this from a sql code chunk. In the SQL code chunk section, assign your connection variable to the connection parameter as shown below.
 
 ![](mssql%20con.png){fig-align="left"}
 
-And then run your query as below.
+And then run your queries as below. Our first query will check tables in the Employee database.
+
+```{sql connection = mssql_con}
+SELECT 
+      name AS Table_Name
+FROM 
+      Employees.sys.tables
+```
+
+Next, we will run a query using GROUP BY and ROLL UP to get Female and Male Employees per country, Female and Male totals, and also all total employees.
 
 ```{sql connection = mssql_con}
 
@@ -88,9 +97,11 @@ GROUP BY
 
 ```
 
-You'll want to save the output of your query into a df that you can interact with R.
+#### **Save the Query Output**
 
-You can achieve this by passing a variable name to the output.var option in the sql code chunk as shown below.
+You'll want to save the output of your query into a df that you can use in R.
+
+We save the output by passing a variable name to the output.var option in the sql code chunk as shown below.
 
 ![](output.var.png){fig-align="left"}
 

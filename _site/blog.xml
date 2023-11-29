@@ -108,7 +108,7 @@ font-style: inherit;">#PWD = "password"</span></span>
 </section>
 <section id="querying-ms-sql-server" class="level4">
 <h4 class="anchored" data-anchor-id="querying-ms-sql-server"><strong>Querying MS SQL Server</strong></h4>
-<p>Of course we can query from an R code chunk as below using dbGetQuery(). But let’s focus on how to do this froma sql code chunk.</p>
+<p>Of course we can query from an R code chunk as below using dbGetQuery().</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1">query <span class="ot" style="color: #003B4F;
 background-color: null;
@@ -124,70 +124,106 @@ font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">dbGetQuery</span>(mssql_con, query)</span></code></pre></div>
 </div>
-<p>In the SQL code chunk section, assign your connection variable to the connection parameter.</p>
+<p>But let’s focus on how to do this from a sql code chunk. In the SQL code chunk section, assign your connection variable to the connection parameter as shown below.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
 <p><img src="https://mj-datatunes.com/posts/Query DBs from R_Quarto/mssql con.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
-<p>And then run your query as below.</p>
+<p>And then run your queries as below. Our first query will check tables in the Employee database.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"></span>
-<span id="cb4-2"><span class="kw" style="color: #003B4F;
+<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">SELECT</span> </span>
+<span id="cb4-2">      name <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">AS</span> Table_Name</span>
+<span id="cb4-3"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">FROM</span> </span>
+<span id="cb4-4">      Employees.sys.<span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">tables</span></span></code></pre></div>
+<div class="knitsql-table">
+<table class="table table-sm table-striped small">
+<caption>3 records</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Table_Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Employee_Info</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Job_Desc</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Comp_Info</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Next, we will run a query using GROUP BY and ROLL UP to get Female and Male Employees per country, Female and Male totals, and also all total employees.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"></span>
+<span id="cb5-2"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">SELECT</span></span>
-<span id="cb4-3">         <span class="fu" style="color: #4758AB;
+<span id="cb5-3">         <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">COALESCE</span>(Gender, <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'Employees'</span>) <span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">AS</span> Gender</span>
-<span id="cb4-4">        ,<span class="fu" style="color: #4758AB;
+<span id="cb5-4">        ,<span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">COALESCE</span>(Country, <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'Total'</span>) <span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">AS</span> Country</span>
-<span id="cb4-5">        ,<span class="fu" style="color: #4758AB;
+<span id="cb5-5">        ,<span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">COUNT</span>(Full_Name) <span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">AS</span> Employee_Counts</span>
-<span id="cb4-6"><span class="kw" style="color: #003B4F;
+<span id="cb5-6"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">FROM</span> </span>
-<span id="cb4-7">        Employee_Info <span class="kw" style="color: #003B4F;
+<span id="cb5-7">        Employee_Info <span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">AS</span> EI</span>
-<span id="cb4-8"><span class="kw" style="color: #003B4F;
+<span id="cb5-8"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">LEFT</span> <span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">JOIN</span></span>
-<span id="cb4-9">        Job_Desc <span class="kw" style="color: #003B4F;
+<span id="cb5-9">        Job_Desc <span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">AS</span> JD</span>
-<span id="cb4-10">        <span class="kw" style="color: #003B4F;
+<span id="cb5-10">        <span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">ON</span> EI.Emp_ID <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> JD.Emp_ID</span>
-<span id="cb4-11"><span class="kw" style="color: #003B4F;
+<span id="cb5-11"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">WHERE</span></span>
-<span id="cb4-12">        Country <span class="op" style="color: #5E5E5E;
+<span id="cb5-12">        Country <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;&gt;</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'Kenya'</span></span>
-<span id="cb4-13"><span class="kw" style="color: #003B4F;
+<span id="cb5-13"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">GROUP</span> <span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">BY</span></span>
-<span id="cb4-14">        <span class="kw" style="color: #003B4F;
+<span id="cb5-14">        <span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">ROLLUP</span> (Gender, Country)</span></code></pre></div>
 <div class="knitsql-table">
@@ -250,8 +286,11 @@ font-style: inherit;">ROLLUP</span> (Gender, Country)</span></code></pre></div>
 </table>
 </div>
 </div>
-<p>You’ll want to save the output of your query into a df that you can interact with R.</p>
-<p>You can achieve this by passing a variable name to the output.var option in the sql code chunk as shown below.</p>
+</section>
+<section id="save-the-query-output" class="level4">
+<h4 class="anchored" data-anchor-id="save-the-query-output"><strong>Save the Query Output</strong></h4>
+<p>You’ll want to save the output of your query into a df that you can use in R.</p>
+<p>We save the output by passing a variable name to the output.var option in the sql code chunk as shown below.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
 <p><img src="https://mj-datatunes.com/posts/Query DBs from R_Quarto/output.var.png" class="img-fluid figure-img"></p>
@@ -259,69 +298,69 @@ font-style: inherit;">ROLLUP</span> (Gender, Country)</span></code></pre></div>
 </div>
 <p>And then run your query. The query output will be saved as employee_gender_per_ctry and it will be one of the variables in your environment window in RStudio.</p>
 <div class="cell" data-output.var="employee_gender_per_ctry">
-<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"></span>
-<span id="cb5-2"><span class="kw" style="color: #003B4F;
+<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"></span>
+<span id="cb6-2"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">SELECT</span></span>
-<span id="cb5-3">         <span class="fu" style="color: #4758AB;
+<span id="cb6-3">         <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">COALESCE</span>(Gender, <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'Employees in'</span>) <span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">AS</span> Gender</span>
-<span id="cb5-4">        ,<span class="fu" style="color: #4758AB;
+<span id="cb6-4">        ,<span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">COALESCE</span>(Country, <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'all countries'</span>) <span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">AS</span> Country</span>
-<span id="cb5-5">        ,<span class="fu" style="color: #4758AB;
+<span id="cb6-5">        ,<span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">COUNT</span>(Full_Name) <span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">AS</span> Employee_Counts</span>
-<span id="cb5-6"><span class="kw" style="color: #003B4F;
+<span id="cb6-6"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">FROM</span> </span>
-<span id="cb5-7">        Employee_Info <span class="kw" style="color: #003B4F;
+<span id="cb6-7">        Employee_Info <span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">AS</span> EI</span>
-<span id="cb5-8"><span class="kw" style="color: #003B4F;
+<span id="cb6-8"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">LEFT</span> <span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">JOIN</span></span>
-<span id="cb5-9">        Job_Desc <span class="kw" style="color: #003B4F;
+<span id="cb6-9">        Job_Desc <span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">AS</span> JD</span>
-<span id="cb5-10">        <span class="kw" style="color: #003B4F;
+<span id="cb6-10">        <span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">ON</span> EI.Emp_ID <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> JD.Emp_ID</span>
-<span id="cb5-11"><span class="kw" style="color: #003B4F;
+<span id="cb6-11"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">WHERE</span></span>
-<span id="cb5-12">        Country <span class="op" style="color: #5E5E5E;
+<span id="cb6-12">        Country <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;&gt;</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'Kenya'</span></span>
-<span id="cb5-13"><span class="kw" style="color: #003B4F;
+<span id="cb6-13"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">GROUP</span> <span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">BY</span></span>
-<span id="cb5-14">        <span class="kw" style="color: #003B4F;
+<span id="cb6-14">        <span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">CUBE</span> (Gender, Country)</span>
-<span id="cb5-15">        </span></code></pre></div>
+<span id="cb6-15">        </span></code></pre></div>
 </div>
 <p>Here is our stored query output.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1">employee_gender_per_ctry</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1">employee_gender_per_ctry</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         Gender       Country Employee_Counts
 1        Female        Brazil              60
@@ -352,10 +391,10 @@ font-style: inherit;">CUBE</span> (Gender, Country)</span>
 </ul>
 <p>Having passed in all the required parameters to <strong>dbConnect</strong>, I will proceed to create a connection variable called <em>postegresql_con</em>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><span class="co" style="color: #5E5E5E;
+<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Establish the connection</span></span>
-<span id="cb8-2">postgresql_con <span class="ot" style="color: #003B4F;
+<span id="cb9-2">postgresql_con <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -364,32 +403,32 @@ background-color: null;
 font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">odbc</span>(),</span>
-<span id="cb8-3"> <span class="at" style="color: #657422;
+<span id="cb9-3"> <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">Driver =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"PostgreSQL ODBC Driver(ANSI)"</span>,</span>
-<span id="cb8-4"> <span class="at" style="color: #657422;
+<span id="cb9-4"> <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">Database =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"car_brands"</span>,</span>
-<span id="cb8-5"> <span class="at" style="color: #657422;
+<span id="cb9-5"> <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">Server =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"localhost"</span>,</span>
-<span id="cb8-6"> <span class="at" style="color: #657422;
+<span id="cb9-6"> <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">UID =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"postgres"</span>,</span>
-<span id="cb8-7"> <span class="at" style="color: #657422;
+<span id="cb9-7"> <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">PWD =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"maangi"</span></span>
-<span id="cb8-8">)</span></code></pre></div>
+<span id="cb9-8">)</span></code></pre></div>
 </div>
 <p>On running the above connection query, if you navigate to the connections pane in your RStudio, you will see that a connection has been establisted to postgresSQL.</p>
 <div class="quarto-figure quarto-figure-left">
@@ -403,8 +442,8 @@ font-style: inherit;">"maangi"</span></span>
 <p>Since we have established a connection, we can now query postgreSQL straight from a SQL code chunk in quarto as below.</p>
 <p><img src="https://mj-datatunes.com/posts/Query DBs from R_Quarto/postgre_query.png" class="img-fluid"></p>
 <div class="cell" data-output.var="cars">
-<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb9-1"></span>
-<span id="cb9-2"><span class="kw" style="color: #003B4F;
+<div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb10-1"></span>
+<span id="cb10-2"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">SELECT</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -413,7 +452,7 @@ background-color: null;
 font-style: inherit;">FROM</span> cars</span></code></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1">cars</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1">cars</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   brand  model year
 1  Volvo  p1800 1968
@@ -423,17 +462,17 @@ font-style: inherit;">FROM</span> cars</span></code></pre></div>
 </div>
 <p>There is a second approach that we can use to connect to postgreSQL. In this case, we will need to install and load the RPostgres package. Most of the parameters we pass in are similar except for port which we didn’t provide in the first approach and driver which is not needed in this case.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><span class="co" style="color: #5E5E5E;
+<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># load the required library</span></span>
-<span id="cb12-2"><span class="fu" style="color: #4758AB;
+<span id="cb13-2"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">library</span>(RPostgres)</span>
-<span id="cb12-3"></span>
-<span id="cb12-4"><span class="co" style="color: #5E5E5E;
+<span id="cb13-3"></span>
+<span id="cb13-4"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Replace these values with your actual database credentials</span></span>
-<span id="cb12-5"> postgresql_con2 <span class="ot" style="color: #003B4F;
+<span id="cb13-5"> postgresql_con2 <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -442,55 +481,55 @@ background-color: null;
 font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">Postgres</span>(),</span>
-<span id="cb12-6">  <span class="at" style="color: #657422;
+<span id="cb13-6">  <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">dbname =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"car_brands"</span>,</span>
-<span id="cb12-7">  <span class="at" style="color: #657422;
+<span id="cb13-7">  <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">user =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"postgres"</span>,</span>
-<span id="cb12-8">  <span class="at" style="color: #657422;
+<span id="cb13-8">  <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">password =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"maangi"</span>,</span>
-<span id="cb12-9">  <span class="at" style="color: #657422;
+<span id="cb13-9">  <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">host =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"localhost"</span>,</span>
-<span id="cb12-10">  <span class="at" style="color: #657422;
+<span id="cb13-10">  <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">port =</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">5432</span>  <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># The default PostgreSQL port is 5432</span></span>
-<span id="cb12-11">)</span></code></pre></div>
+<span id="cb13-11">)</span></code></pre></div>
 </div>
 </section>
 <section id="disconnect" class="level4">
 <h4 class="anchored" data-anchor-id="disconnect"><strong>Disconnect</strong></h4>
 <p>Lastly, it’s a good practice to disconnect from you database when you are done querying it to free up your laptop resources.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><span class="co" style="color: #5E5E5E;
+<div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># disconnect from MS SQL</span></span>
-<span id="cb13-2"><span class="fu" style="color: #4758AB;
+<span id="cb14-2"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">dbDisconnect</span>(mssql_con)</span>
-<span id="cb13-3"></span>
-<span id="cb13-4"><span class="co" style="color: #5E5E5E;
+<span id="cb14-3"></span>
+<span id="cb14-4"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># disconnect from MS SQL</span></span>
-<span id="cb13-5"><span class="fu" style="color: #4758AB;
+<span id="cb14-5"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">dbDisconnect</span>(postgresql_con)</span>
-<span id="cb13-6"></span>
-<span id="cb13-7"><span class="fu" style="color: #4758AB;
+<span id="cb14-6"></span>
+<span id="cb14-7"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">dbDisconnect</span>(postgresql_con2)</span></code></pre></div>
 </div>
