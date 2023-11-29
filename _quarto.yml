@@ -21,8 +21,8 @@ cookie-consent: true
 
 format:
   html:
-    theme: cosmo
-    css: styles.css
+    theme: yeti
+    
 
 editor: visual
 
