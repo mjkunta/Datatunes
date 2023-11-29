@@ -130,7 +130,7 @@ font-style: inherit;">dbGetQuery</span>(mssql_con, query)</span></code></pre></d
 <p><img src="https://mj-datatunes.com/posts/Query DBs from R_Quarto/mssql con.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
-<p>And then run your queries as below. Our first query will check tables in the Employee database.</p>
+<p>And then run your queries as below. Our first query will check tables that exist in the Employee database.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><span class="kw" style="color: #003B4F;
 background-color: null;
@@ -306,7 +306,7 @@ font-style: inherit;">SELECT</span></span>
 background-color: null;
 font-style: inherit;">COALESCE</span>(Gender, <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'Employees in'</span>) <span class="kw" style="color: #003B4F;
+font-style: inherit;">'Total'</span>) <span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">AS</span> Gender</span>
 <span id="cb6-4">        ,<span class="fu" style="color: #4758AB;
@@ -362,19 +362,19 @@ font-style: inherit;">CUBE</span> (Gender, Country)</span>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1">employee_gender_per_ctry</span></code></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>         Gender       Country Employee_Counts
-1        Female        Brazil              60
-2          Male        Brazil              65
-3  Employees in        Brazil             125
-4        Female         China              98
-5          Male         China             102
-6  Employees in         China             200
-7        Female United States             313
-8          Male United States             271
-9  Employees in United States             584
-10 Employees in all countries             909
-11       Female all countries             471
-12         Male all countries             438</code></pre>
+<pre><code>   Gender       Country Employee_Counts
+1  Female        Brazil              60
+2    Male        Brazil              65
+3   Total        Brazil             125
+4  Female         China              98
+5    Male         China             102
+6   Total         China             200
+7  Female United States             313
+8    Male United States             271
+9   Total United States             584
+10  Total all countries             909
+11 Female all countries             471
+12   Male all countries             438</code></pre>
 </div>
 </div>
 </section>

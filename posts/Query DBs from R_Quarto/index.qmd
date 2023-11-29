@@ -68,7 +68,7 @@ But let's focus on how to do this from a sql code chunk. In the SQL code chunk s
 
 ![](mssql%20con.png){fig-align="left"}
 
-And then run your queries as below. Our first query will check tables in the Employee database.
+And then run your queries as below. Our first query will check tables that exist in the Employee database.
 
 ```{sql connection = mssql_con}
 SELECT 

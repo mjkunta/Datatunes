@@ -238,7 +238,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="mssql con.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
-<p>And then run your queries as below. Our first query will check tables in the Employee database.</p>
+<p>And then run your queries as below. Our first query will check tables that exist in the Employee database.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>      name <span class="kw">AS</span> Table_Name</span>
@@ -356,7 +356,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell" data-output.var="employee_gender_per_ctry">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>         <span class="fu">COALESCE</span>(Gender, <span class="st">'Employees in'</span>) <span class="kw">AS</span> Gender</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>         <span class="fu">COALESCE</span>(Gender, <span class="st">'Total'</span>) <span class="kw">AS</span> Gender</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        ,<span class="fu">COALESCE</span>(Country, <span class="st">'all countries'</span>) <span class="kw">AS</span> Country</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        ,<span class="fu">COUNT</span>(Full_Name) <span class="kw">AS</span> Employee_Counts</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> </span>
@@ -374,19 +374,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>employee_gender_per_ctry</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>         Gender       Country Employee_Counts
-1        Female        Brazil              60
-2          Male        Brazil              65
-3  Employees in        Brazil             125
-4        Female         China              98
-5          Male         China             102
-6  Employees in         China             200
-7        Female United States             313
-8          Male United States             271
-9  Employees in United States             584
-10 Employees in all countries             909
-11       Female all countries             471
-12         Male all countries             438</code></pre>
+<pre><code>   Gender       Country Employee_Counts
+1  Female        Brazil              60
+2    Male        Brazil              65
+3   Total        Brazil             125
+4  Female         China              98
+5    Male         China             102
+6   Total         China             200
+7  Female United States             313
+8    Male United States             271
+9   Total United States             584
+10  Total all countries             909
+11 Female all countries             471
+12   Male all countries             438</code></pre>
 </div>
 </div>
 </section>
