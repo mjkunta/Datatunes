@@ -110,7 +110,7 @@ And then run your query. The query output will be saved as employee_gender_per_c
 ```{sql connection = mssql_con, output.var = 'employee_gender_per_ctry'}
 
 SELECT
-         COALESCE(Gender, 'Employees in') AS Gender
+         COALESCE(Gender, 'Total') AS Gender
         ,COALESCE(Country, 'all countries') AS Country
         ,COUNT(Full_Name) AS Employee_Counts
 FROM 
