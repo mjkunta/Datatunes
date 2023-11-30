@@ -22,7 +22,7 @@ cookie-consent: true
 format:
   html:
     theme: yeti
-    
+    include-in-header: gtag_code.html
 
 editor: visual
 
