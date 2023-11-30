@@ -24,8 +24,6 @@ My preferred approach needs installation of only two packages. That is: ODBC and
 library(odbc) # provides drivers to connect to different SQL dialects
 library(DBI)  # provides functions to interact with the database
 
-library(tidyverse) # for data manipulation
-
 ```
 
 #### **Connect to MS SQL Server**
