@@ -13,6 +13,6 @@ about:
       href: https://github.com
 ---
 
-Hello, I'm Maangi Josiah and a data addict.
+Hello, I'm Maangi Josiah, and I love all things data.
 
 I'm a Finance graduate from the University of Nairobi, Kenya with an appetite for data tools. I draw my dopamine from utilizing SQL, R, Power BI, and some Python. In this blog, I chronicle my data journey, sharing simple yet invaluable tricks I have encountered along the way.
