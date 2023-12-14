@@ -10,7 +10,466 @@
 <atom:link href="https://mj-datatunes.com/blog.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.3.450</generator>
-<lastBuildDate>Sun, 26 Nov 2023 21:00:00 GMT</lastBuildDate>
+<lastBuildDate>Wed, 13 Dec 2023 21:00:00 GMT</lastBuildDate>
+<item>
+  <title>Report Manipulation with R</title>
+  <link>https://mj-datatunes.com/posts/Report manipulation/nest dplyr.html</link>
+  <description><![CDATA[ 
+
+
+
+<section id="scenario" class="level4">
+<h4 class="anchored" data-anchor-id="scenario"><strong>Scenario</strong></h4>
+<p>You have been asked to pull a report of all employees and their respective departments from a database. The user wants this report in an Excel workbook with each department and employees under it on a separate sheet. Assuming we have Accounting, Finance, and Marketing departments, our Excel workbook should have 3 sheets(tabs) representing the 3 departments and their respective employees.</p>
+<p>You can pull these reports one by one and add them to an Excel workbook since they are just 3. But what if there are 6 or more departments, that approach will be ineffective, manual, and annoyingly repetitive. Well, we can do pull a single report and easily manipulate it with tidyverse and openxlsx functions.</p>
+<p><strong>Load the required packages:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1">pacman<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">p_load</span>(odbc, DBI, tidyverse, writexl, openxlsx)</span></code></pre></div>
+</div>
+<p>To manipulate our report into a workbook with sheets for each department, we will do the following.</p>
+<ol type="1">
+<li>Pull a single report with all employees and their respective departments and save it.</li>
+<li>Create a workbook</li>
+<li>Apply the nest_by function from dplyr to our report and nest by Department.</li>
+<li>Add sheets to our workbook. We will use department names as our sheet names.</li>
+<li>Write data into each sheets(Department)</li>
+<li>Save your workbook</li>
+</ol>
+<p><strong>A primer on nest_by()</strong></p>
+<p>First, I will create a simple df and see what happens to it when we apply the nest_by function to it. Below is my simple members df with columns: name, country, and avg_sleep_hours.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># create a simple data frame and call it members</span></span>
+<span id="cb2-2">name <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Julie'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Maangi'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Kevin'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Mercy'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Nick'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Salim'</span>) </span>
+<span id="cb2-3">country <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Kenya'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Kenya'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Uganda'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Uganda'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Tanzania'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Tanzania'</span>)</span>
+<span id="cb2-4">avg_sleep_hours <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">8</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">7</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">7</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">6</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9</span>)</span>
+<span id="cb2-5">members <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">data.frame</span>(name, country, avg_sleep_hours)</span>
+<span id="cb2-6"></span>
+<span id="cb2-7">members</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    name  country avg_sleep_hours
+1  Julie    Kenya               8
+2 Maangi    Kenya               7
+3  Kevin   Uganda               7
+4  Mercy   Uganda               9
+5   Nick Tanzania               6
+6  Salim Tanzania               9</code></pre>
+</div>
+</div>
+<p>Next, let us see what happens when we nest_by the country column on the members df.</p>
+<p>nest_by works the same way as group_by except that it turns our data frame into an object with two columns in this case. The first column is the categories we are nesting by - country and will display the unique categories as our rows. The second column is data from other columns. In summary, all details for members from Kenya will be bundled into a single row, ditto those from Uganda and Tanzania as shown below. With this formating, we can easily write our data for each country into separate sheet.</p>
+<p>Setting .keep = TRUE in the code allows us to keep the column(s) we are nesting by.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"> members <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb4-2">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">nest_by</span>(country, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">.keep =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>)</span></code></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://mj-datatunes.com/posts/Report manipulation/nest_by.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="apply-the-concept-to-our-use-case" class="level4">
+<h4 class="anchored" data-anchor-id="apply-the-concept-to-our-use-case">Apply the concept to our use case</h4>
+<p><strong>Create a database connection and pull our report</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1">mssql_con <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> DBI<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">dbConnect</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">drv =</span> odbc<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">odbc</span>(),</span>
+<span id="cb5-2">                      <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">Driver =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"SQL Server"</span>,</span>
+<span id="cb5-3">                      <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">Server =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"DESKTOP-CKPR726"</span>,</span>
+<span id="cb5-4">                      <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">Database =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Employees"</span></span>
+<span id="cb5-5">                      <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#UID = "user",</span></span>
+<span id="cb5-6">                      <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#PWD = "password"</span></span>
+<span id="cb5-7">                      ) </span></code></pre></div>
+</div>
+<p>Before pulling the report, we can check how many distinct Departments we have. So we expect 7 sheets in our workbook.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">SELECT</span></span>
+<span id="cb6-2">  <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">DISTINCT</span></span>
+<span id="cb6-3">      Department</span>
+<span id="cb6-4"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">FROM</span></span>
+<span id="cb6-5">      Job_Desc</span></code></pre></div>
+<div class="knitsql-table">
+<table class="table table-sm table-striped small">
+<caption>7 records</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Department</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Marketing</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sales</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Engineering</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">IT</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Human Resources</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Finance</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Accounting</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Let’s pull a report of all employees and their departments. I will save it as employees_per_dept</p>
+<div class="cell" data-output.var="employees_per_dept">
+<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"></span>
+<span id="cb7-2"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">SELECT</span></span>
+<span id="cb7-3">          Full_Name</span>
+<span id="cb7-4">        , Gender</span>
+<span id="cb7-5">        , Age</span>
+<span id="cb7-6">        , Country</span>
+<span id="cb7-7">        , Department</span>
+<span id="cb7-8">        , Business_Unit</span>
+<span id="cb7-9"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">FROM</span> </span>
+<span id="cb7-10">          Employee_Info <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">AS</span> EI</span>
+<span id="cb7-11"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">LEFT</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">JOIN</span></span>
+<span id="cb7-12">          Job_Desc <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">AS</span> JD</span>
+<span id="cb7-13">      <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">ON</span>  EI.Emp_ID <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> JD.Emp_ID</span>
+<span id="cb7-14"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">WHERE</span> Department <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">IS</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">NOT</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">NULL</span></span></code></pre></div>
+</div>
+<p>Create a workbook, apply the nest_by function, add sheets to our workbook, write data into the respective sheets, and save the workbook.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># initialize the workbook</span></span>
+<span id="cb8-2"></span>
+<span id="cb8-3">employees_workbook <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">createWorkbook</span>()</span>
+<span id="cb8-4"></span>
+<span id="cb8-5"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># apply nest_by to our report</span></span>
+<span id="cb8-6">employees_per_dept <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span> </span>
+<span id="cb8-7">  dplyr<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">nest_by</span>(Department, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">.keep =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span> </span>
+<span id="cb8-8">  </span>
+<span id="cb8-9"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># add worksheets for each department to our workbook</span></span>
+<span id="cb8-10">  dplyr<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mutate</span>(</span>
+<span id="cb8-11">    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">addWorksheet</span>(employees_workbook, <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">paste0</span>(Department, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'_Dept'</span>)),</span>
+<span id="cb8-12">    </span>
+<span id="cb8-13"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># write data into the respective worksheets(Departments)</span></span>
+<span id="cb8-14">    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">writeData</span>(employees_workbook, <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">paste0</span>(Department,<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'_Dept'</span>), data,)</span>
+<span id="cb8-15">  ) </span>
+<span id="cb8-16">   </span>
+<span id="cb8-17"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># save workbook</span></span>
+<span id="cb8-18"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">saveWorkbook</span>(employees_workbook, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'employees_per_dept.xlsx'</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">overwrite =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>)</span></code></pre></div>
+</div>
+<p>And we will get our workbook with all the sheets(Departments) as shown below.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://mj-datatunes.com/posts/Report manipulation/nest_by_depts.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="report-customization" class="level4">
+<h4 class="anchored" data-anchor-id="report-customization">Report Customization</h4>
+<p>We can customize our report by adding alignment, font style, color, tabcolour, and gridlines. There also many styles one can apply.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># define the style of my sheets</span></span>
+<span id="cb9-2">hs1 <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">createStyle</span>(</span>
+<span id="cb9-3">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">fgFill =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#DCE6F1"</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">halign =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"CENTER"</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">textDecoration =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"italic"</span>,</span>
+<span id="cb9-4">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">border =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Bottom"</span></span>
+<span id="cb9-5">)</span></code></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1">wb2 <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">createWorkbook</span>()</span>
+<span id="cb10-2"></span>
+<span id="cb10-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># write into the workbook</span></span>
+<span id="cb10-4">employees_per_dept <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span> </span>
+<span id="cb10-5">  dplyr<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">nest_by</span>(Department, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">.keep =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span> </span>
+<span id="cb10-6">  </span>
+<span id="cb10-7"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># add worksheets for each department to our workbook</span></span>
+<span id="cb10-8">  dplyr<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mutate</span>(</span>
+<span id="cb10-9">    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">addWorksheet</span>(wb2, </span>
+<span id="cb10-10">                 <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">paste0</span>(Department, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'_Dept'</span>), </span>
+<span id="cb10-11">                 <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">gridLines =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">FALSE</span>, </span>
+<span id="cb10-12">                 <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">tabColour =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'#00008b'</span>),</span>
+<span id="cb10-13">    </span>
+<span id="cb10-14"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># write data into the respective worksheets(Departments)</span></span>
+<span id="cb10-15">    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">writeData</span>(wb2, </span>
+<span id="cb10-16">              <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">paste0</span>(Department,<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'_Dept'</span>), </span>
+<span id="cb10-17">              data, </span>
+<span id="cb10-18">              <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">headerStyle =</span> hs1)</span>
+<span id="cb10-19">  ) </span>
+<span id="cb10-20">   </span>
+<span id="cb10-21"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># save workbook</span></span>
+<span id="cb10-22"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">saveWorkbook</span>(wb2, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'employees_per_dept2.xlsx'</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">overwrite =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>)</span></code></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://mj-datatunes.com/posts/Report manipulation/custom.png" class="img-fluid figure-img" width="653"></p>
+</figure>
+</div>
+<p>Up next, we will see how we can do this using python - with groupby from pandas and a few functions from openpyxl.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>R</category>
+  <category>Report Manipulation</category>
+  <guid>https://mj-datatunes.com/posts/Report manipulation/nest dplyr.html</guid>
+  <pubDate>Wed, 13 Dec 2023 21:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Query MS SQL and PostgreSQL from R/Quarto</title>
   <link>https://mj-datatunes.com/posts/Query DBs from R_Quarto/index.html</link>

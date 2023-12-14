@@ -2,6 +2,7 @@
   {
     "listing": "/blog.html",
     "items": [
+      "/posts/Report manipulation/nest dplyr.html",
       "/posts/Query DBs from R_Quarto/index.html",
       "/posts/Renaming Columns/index.html",
       "/posts/we_are_live/index.html"

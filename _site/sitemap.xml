@@ -2,11 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://mj-datatunes.com/index.html</loc>
-    <lastmod>2023-11-30T23:33:40.423Z</lastmod>
+    <lastmod>2023-12-02T09:54:19.352Z</lastmod>
   </url>
   <url>
     <loc>https://mj-datatunes.com/blog.html</loc>
-    <lastmod>2023-11-30T23:33:46.786Z</lastmod>
+    <lastmod>2023-12-14T11:40:08.370Z</lastmod>
   </url>
   <url>
     <loc>https://mj-datatunes.com/posts/Renaming Columns/index.html</loc>
@@ -18,7 +18,7 @@
   </url>
   <url>
     <loc>https://mj-datatunes.com/posts/we_are_live/index.html</loc>
-    <lastmod>2023-11-28T14:46:07.918Z</lastmod>
+    <lastmod>2023-12-02T09:55:03.528Z</lastmod>
   </url>
   <url>
     <loc>https://mj-datatunes.com/posts/Combining CSV and Excel files in R/index.html</loc>
@@ -34,10 +34,14 @@
   </url>
   <url>
     <loc>https://mj-datatunes.com/cv.html</loc>
-    <lastmod>2023-11-28T16:39:25.822Z</lastmod>
+    <lastmod>2023-12-02T09:57:25.267Z</lastmod>
   </url>
   <url>
     <loc>https://mj-datatunes.com/posts/Renaming Columns/Query DBs from R_Quarto/index.html</loc>
     <lastmod>2023-11-30T11:19:49.907Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mj-datatunes.com/posts/Report manipulation/nest dplyr.html</loc>
+    <lastmod>2023-12-14T11:40:07.172Z</lastmod>
   </url>
 </urlset>
