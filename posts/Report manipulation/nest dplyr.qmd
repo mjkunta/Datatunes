@@ -3,7 +3,7 @@ title: "Report Manipulation with R"
 format: html
 editor: visual
 date: 2023-12-14
-categories: [R,Report Manipulation]
+categories: [R,Reports Manipulation]
 title-block-banner: false
 ---
 
@@ -54,7 +54,7 @@ Setting .keep = TRUE in the code allows us to keep the column(s) we are nesting 
   nest_by(country, .keep = TRUE)
 ```
 
-![](/posts/Report manipulation/nest_by.png){fig-align="center"}
+![](/posts/Report%20manipulation/nest_by.png){fig-align="center"}
 
 #### Apply the concept to our use case
 
