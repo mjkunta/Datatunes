@@ -2,6 +2,7 @@
   {
     "listing": "/blog.html",
     "items": [
+      "/posts/Olympic Medals dashboard/index.html",
       "/posts/Report manipulation/nest dplyr.html",
       "/posts/Query DBs from R_Quarto/index.html",
       "/posts/Renaming Columns/index.html",

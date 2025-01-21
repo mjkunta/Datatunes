@@ -9,12 +9,13 @@
 <link>https://mj-datatunes.com/blog.html</link>
 <atom:link href="https://mj-datatunes.com/blog.xml" rel="self" type="application/rss+xml"/>
 <description></description>
-<generator>quarto-1.3.450</generator>
+<generator>quarto-1.6.39</generator>
 <lastBuildDate>Wed, 13 Dec 2023 21:00:00 GMT</lastBuildDate>
 <item>
   <title>Report Manipulation with R</title>
   <link>https://mj-datatunes.com/posts/Report manipulation/nest dplyr.html</link>
   <description><![CDATA[ 
+
 
 
 
@@ -130,7 +131,7 @@ font-style: inherit;">TRUE</span>)</span></code></pre></div>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://mj-datatunes.com/posts/Report manipulation/nest_by.png" class="img-fluid figure-img"></p>
+<p><img src="https://mj-datatunes.com/posts/Report manipulation/nest_by.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 </section>
@@ -178,17 +179,20 @@ font-style: inherit;">#PWD = "password"</span></span>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">SELECT</span></span>
 <span id="cb6-2">  <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">DISTINCT</span></span>
 <span id="cb6-3">      Department</span>
 <span id="cb6-4"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">FROM</span></span>
 <span id="cb6-5">      Job_Desc</span></code></pre></div>
 <div class="knitsql-table">
-<table class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
 <caption>7 records</caption>
 <thead>
 <tr class="header">
@@ -226,6 +230,7 @@ font-style: inherit;">FROM</span></span>
 <div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"></span>
 <span id="cb7-2"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">SELECT</span></span>
 <span id="cb7-3">          Full_Name</span>
 <span id="cb7-4">        , Gender</span>
@@ -235,31 +240,41 @@ font-style: inherit;">SELECT</span></span>
 <span id="cb7-8">        , Business_Unit</span>
 <span id="cb7-9"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">FROM</span> </span>
 <span id="cb7-10">          Employee_Info <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">AS</span> EI</span>
 <span id="cb7-11"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">LEFT</span> <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">JOIN</span></span>
 <span id="cb7-12">          Job_Desc <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">AS</span> JD</span>
 <span id="cb7-13">      <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">ON</span>  EI.Emp_ID <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> JD.Emp_ID</span>
 <span id="cb7-14"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">WHERE</span> Department <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">IS</span> <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">NOT</span> <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">NULL</span></span></code></pre></div>
 </div>
 <p>Create a workbook, apply the nest_by function, add sheets to our workbook, write data into the respective sheets, and save the workbook.</p>
@@ -336,7 +351,7 @@ font-style: inherit;">TRUE</span>)</span></code></pre></div>
 <p>And we will get our workbook with all the sheets(Departments) as shown below.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://mj-datatunes.com/posts/Report manipulation/nest_by_depts.png" class="img-fluid figure-img"></p>
+<p><img src="https://mj-datatunes.com/posts/Report manipulation/nest_by_depts.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 </section>
@@ -456,7 +471,7 @@ font-style: inherit;">TRUE</span>)</span></code></pre></div>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://mj-datatunes.com/posts/Report manipulation/custom.png" class="img-fluid figure-img" width="653"></p>
+<p><img src="https://mj-datatunes.com/posts/Report manipulation/custom.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="653"></p>
 </figure>
 </div>
 <p>Up next, we will see how we can do this using python - with groupby from pandas and a few functions from openpyxl.</p>
@@ -471,909 +486,31 @@ font-style: inherit;">TRUE</span>)</span></code></pre></div>
   <pubDate>Wed, 13 Dec 2023 21:00:00 GMT</pubDate>
 </item>
 <item>
-  <title>Query MS SQL and PostgreSQL from R/Quarto</title>
-  <link>https://mj-datatunes.com/posts/Query DBs from R_Quarto/index.html</link>
-  <description><![CDATA[ 
-
-
-
-<p>I have been using Quarto in RStudio for a few months now and I am captivated by it’s features. The ability to seamlessly execute SQL queries directly from SQL code chunks and saving results as R data frames is compelling. This connection is valuable when you want to leverage R’s data manipulations capabilities especially the tidyverse packages. We will explore a few examples in the next blog.</p>
-<p>For now, let’s focus on establishing connections to and querying the following SQL databases:</p>
-<ul>
-<li>MS SQL Server</li>
-<li>PostegreSQL</li>
-</ul>
-<section id="load-the-required-libraries" class="level4">
-<h4 class="anchored" data-anchor-id="load-the-required-libraries"><strong>Load the Required Libraries:</strong></h4>
-<p>My preferred approach needs installation of only two packages. That is: ODBC and DBI. Since I have already installed the two packages, I will go ahead and load them.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">library</span>(odbc) <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># provides drivers to connect to different SQL dialects</span></span>
-<span id="cb1-2"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">library</span>(DBI)  <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># provides functions to interact with the database</span></span></code></pre></div>
-</div>
-</section>
-<section id="connect-to-ms-sql-server" class="level4">
-<h4 class="anchored" data-anchor-id="connect-to-ms-sql-server"><strong>Connect to MS SQL Server</strong></h4>
-<p>I will begin by connecting to Microsoft SQL Server using the dbConnect function from the DBI package. This function allows for database user authentication and connection establishment. You will need to provide the Driver, Server, Database, UID, and PWD parameters to the dbConnect function. For MS SQL Server, the Server parameter corresponds to the Server name, UID corresponds to Login, and PWD corresponds to Password in the login details, as shown in the first screenshot below. To obtain the MS SQL Driver, navigate to the Drivers tab in the ODBC Data Sources window, as shown in the second screenshot. The driver name will depend on the MS SQL version you are using.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://mj-datatunes.com/posts/Query DBs from R_Quarto/MS SQL login.png" class="img-fluid figure-img" width="522"></p>
-<figcaption class="figure-caption">MS SQL Login</figcaption>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://mj-datatunes.com/posts/Query DBs from R_Quarto/drivers.png" class="img-fluid figure-img" width="510"></p>
-<figcaption class="figure-caption">Drivers</figcaption>
-</figure>
-</div>
-<p>After passing in the required parameters to <strong>dbConnect</strong>, I will save my connection as <em>mssql_con</em> as shown below. Having established the connection, we are ready to query our MS SQL database.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">mssql_con <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> DBI<span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">dbConnect</span>(<span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">drv =</span> odbc<span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">odbc</span>(),</span>
-<span id="cb2-2">                      <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">Driver =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"SQL Server"</span>,</span>
-<span id="cb2-3">                      <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">Server =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"DESKTOP-CKPR726"</span>,</span>
-<span id="cb2-4">                      <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">Database =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"Employees"</span></span>
-<span id="cb2-5">                      <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">#UID = "user",</span></span>
-<span id="cb2-6">                      <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">#PWD = "password"</span></span>
-<span id="cb2-7">                      ) </span></code></pre></div>
-</div>
-<p>Once the above code runs, the connection will be established and it will be displayed in the connection pane of your RStudio. As you can see below, we have connected to Employees database, we can see the tables under it, and the column names under Employee_Info table.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://mj-datatunes.com/posts/Query DBs from R_Quarto/connection.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</section>
-<section id="querying-ms-sql-server" class="level4">
-<h4 class="anchored" data-anchor-id="querying-ms-sql-server"><strong>Querying MS SQL Server</strong></h4>
-<p>Of course we can query from an R code chunk as below using dbGetQuery().</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1">query <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'SELECT TOP 5 Full_Name, Age, Gender FROM Employee_Info'</span></span>
-<span id="cb3-2"></span>
-<span id="cb3-3">employees_df <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> DBI<span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">dbGetQuery</span>(mssql_con, query)</span></code></pre></div>
-</div>
-<p>But let’s focus on how to do this from a sql code chunk. In the SQL code chunk section, assign your connection variable to the connection parameter as shown below.</p>
-<div class="quarto-figure quarto-figure-left">
-<figure class="figure">
-<p><img src="https://mj-datatunes.com/posts/Query DBs from R_Quarto/mssql con.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-<p>And then run your queries as below. Our first query will check tables that exist in the Employee database.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">SELECT</span> </span>
-<span id="cb4-2">      name <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">AS</span> Table_Name</span>
-<span id="cb4-3"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">FROM</span> </span>
-<span id="cb4-4">      Employees.sys.<span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">tables</span></span></code></pre></div>
-<div class="knitsql-table">
-<table class="table table-sm table-striped small">
-<caption>3 records</caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Table_Name</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Employee_Info</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Job_Desc</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Comp_Info</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Next, we will run a query using GROUP BY and ROLL UP to get Female and Male Employees per country, Female and Male totals, and also all total employees.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"></span>
-<span id="cb5-2"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">SELECT</span></span>
-<span id="cb5-3">         <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">COALESCE</span>(Gender, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Employees'</span>) <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">AS</span> Gender</span>
-<span id="cb5-4">        ,<span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">COALESCE</span>(Country, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Total'</span>) <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">AS</span> Country</span>
-<span id="cb5-5">        ,<span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">COUNT</span>(Full_Name) <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">AS</span> Employee_Counts</span>
-<span id="cb5-6"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">FROM</span> </span>
-<span id="cb5-7">        Employee_Info <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">AS</span> EI</span>
-<span id="cb5-8"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">LEFT</span> <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">JOIN</span></span>
-<span id="cb5-9">        Job_Desc <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">AS</span> JD</span>
-<span id="cb5-10">        <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">ON</span> EI.Emp_ID <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> JD.Emp_ID</span>
-<span id="cb5-11"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">WHERE</span></span>
-<span id="cb5-12">        Country <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&lt;&gt;</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Kenya'</span></span>
-<span id="cb5-13"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">GROUP</span> <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">BY</span></span>
-<span id="cb5-14">        <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">ROLLUP</span> (Gender, Country)</span></code></pre></div>
-<div class="knitsql-table">
-<table class="table table-sm table-striped small">
-<caption>9 records</caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Gender</th>
-<th style="text-align: left;">Country</th>
-<th style="text-align: right;">Employee_Counts</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Female</td>
-<td style="text-align: left;">Brazil</td>
-<td style="text-align: right;">60</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Female</td>
-<td style="text-align: left;">China</td>
-<td style="text-align: right;">98</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Female</td>
-<td style="text-align: left;">United States</td>
-<td style="text-align: right;">313</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Female</td>
-<td style="text-align: left;">Total</td>
-<td style="text-align: right;">471</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Male</td>
-<td style="text-align: left;">Brazil</td>
-<td style="text-align: right;">65</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Male</td>
-<td style="text-align: left;">China</td>
-<td style="text-align: right;">102</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Male</td>
-<td style="text-align: left;">United States</td>
-<td style="text-align: right;">271</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Male</td>
-<td style="text-align: left;">Total</td>
-<td style="text-align: right;">438</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Employees</td>
-<td style="text-align: left;">Total</td>
-<td style="text-align: right;">909</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</section>
-<section id="save-the-query-output" class="level4">
-<h4 class="anchored" data-anchor-id="save-the-query-output"><strong>Save the Query Output</strong></h4>
-<p>You’ll want to save the output of your query into a df that you can use in R.</p>
-<p>We save the output by passing a variable name to the output.var option in the sql code chunk as shown below.</p>
-<div class="quarto-figure quarto-figure-left">
-<figure class="figure">
-<p><img src="https://mj-datatunes.com/posts/Query DBs from R_Quarto/output.var.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-<p>And then run your query. The query output will be saved as employee_gender_per_ctry and it will be one of the variables in your environment window in RStudio.</p>
-<div class="cell" data-output.var="employee_gender_per_ctry">
-<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"></span>
-<span id="cb6-2"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">SELECT</span></span>
-<span id="cb6-3">         <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">COALESCE</span>(Gender, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Total'</span>) <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">AS</span> Gender</span>
-<span id="cb6-4">        ,<span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">COALESCE</span>(Country, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'all countries'</span>) <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">AS</span> Country</span>
-<span id="cb6-5">        ,<span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">COUNT</span>(Full_Name) <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">AS</span> Employee_Counts</span>
-<span id="cb6-6"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">FROM</span> </span>
-<span id="cb6-7">        Employee_Info <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">AS</span> EI</span>
-<span id="cb6-8"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">LEFT</span> <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">JOIN</span></span>
-<span id="cb6-9">        Job_Desc <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">AS</span> JD</span>
-<span id="cb6-10">        <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">ON</span> EI.Emp_ID <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> JD.Emp_ID</span>
-<span id="cb6-11"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">WHERE</span></span>
-<span id="cb6-12">        Country <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">&lt;&gt;</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Kenya'</span></span>
-<span id="cb6-13"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">GROUP</span> <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">BY</span></span>
-<span id="cb6-14">        <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">CUBE</span> (Gender, Country)</span>
-<span id="cb6-15">        </span></code></pre></div>
-</div>
-<p>Here is our stored query output.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1">employee_gender_per_ctry</span></code></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   Gender       Country Employee_Counts
-1  Female        Brazil              60
-2    Male        Brazil              65
-3   Total        Brazil             125
-4  Female         China              98
-5    Male         China             102
-6   Total         China             200
-7  Female United States             313
-8    Male United States             271
-9   Total United States             584
-10  Total all countries             909
-11 Female all countries             471
-12   Male all countries             438</code></pre>
-</div>
-</div>
-</section>
-<section id="connect-to-postegresql" class="level4">
-<h4 class="anchored" data-anchor-id="connect-to-postegresql"><strong>Connect to PostegreSQL</strong></h4>
-<p>For postgreSQL, you will follow the same procedure as we did with MS SQL and pass in the login details provided by your Database administrator. In my case, I’m the superuser 😎. Since my database is hosted locally, my server will be localhost, UID = postgres and PWD = postgres. These are the defaults when you install postgreSQL. But I changed my PWD to maangi.</p>
-<p>The most important thing will be knowing the driver to use. Accessing these details is slightly different from accessing the MS SQL driver. Follow the following steps:</p>
-<ul>
-<li><p>On you windows laptop, you click the windows key + R.</p></li>
-<li><p>On the window that pops up, type - <strong>odbcad32.exe</strong></p>
-<p><img src="https://mj-datatunes.com/posts/Query DBs from R_Quarto/postgre_drivers.png" class="img-fluid" width="501"></p></li>
-<li><p>Click ok and navigate to the Drivers tab and pick the appropriate driver name as shown below.</p>
-<p><img src="https://mj-datatunes.com/posts/Query DBs from R_Quarto/postgresql_drivers.png" class="img-fluid" width="501"></p></li>
-</ul>
-<p>Having passed in all the required parameters to <strong>dbConnect</strong>, I will proceed to create a connection variable called <em>postegresql_con</em>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Establish the connection</span></span>
-<span id="cb9-2">postgresql_con <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">dbConnect</span>(odbc<span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">odbc</span>(),</span>
-<span id="cb9-3"> <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">Driver =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"PostgreSQL ODBC Driver(ANSI)"</span>,</span>
-<span id="cb9-4"> <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">Database =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"car_brands"</span>,</span>
-<span id="cb9-5"> <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">Server =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"localhost"</span>,</span>
-<span id="cb9-6"> <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">UID =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"postgres"</span>,</span>
-<span id="cb9-7"> <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">PWD =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"maangi"</span></span>
-<span id="cb9-8">)</span></code></pre></div>
-</div>
-<p>On running the above connection query, if you navigate to the connections pane in your RStudio, you will see that a connection has been establisted to postgresSQL.</p>
-<div class="quarto-figure quarto-figure-left">
-<figure class="figure">
-<p><img src="https://mj-datatunes.com/posts/Query DBs from R_Quarto/connection_pane.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</section>
-<section id="querying-postgresql" class="level4">
-<h4 class="anchored" data-anchor-id="querying-postgresql"><strong>Querying PostgreSQL</strong></h4>
-<p>Since we have established a connection, we can now query postgreSQL straight from a SQL code chunk in quarto as below.</p>
-<p><img src="https://mj-datatunes.com/posts/Query DBs from R_Quarto/postgre_query.png" class="img-fluid"></p>
-<div class="cell" data-output.var="cars">
-<div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb10-1"></span>
-<span id="cb10-2"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">SELECT</span> <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">*</span> <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">FROM</span> cars</span></code></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1">cars</span></code></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   brand  model year
-1  Volvo  p1800 1968
-2    BMW     M1 1978
-3 Toyota Celica 1975</code></pre>
-</div>
-</div>
-<p>There is a second approach that we can use to connect to postgreSQL. In this case, we will need to install and load the RPostgres package. Most of the parameters we pass in are similar except for port which we didn’t provide in the first approach and driver which is not needed in this case.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># load the required library</span></span>
-<span id="cb13-2"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">library</span>(RPostgres)</span>
-<span id="cb13-3"></span>
-<span id="cb13-4"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Replace these values with your actual database credentials</span></span>
-<span id="cb13-5"> postgresql_con2 <span class="ot" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">dbConnect</span>(RPostgres<span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">Postgres</span>(),</span>
-<span id="cb13-6">  <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">dbname =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"car_brands"</span>,</span>
-<span id="cb13-7">  <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">user =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"postgres"</span>,</span>
-<span id="cb13-8">  <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">password =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"maangi"</span>,</span>
-<span id="cb13-9">  <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">host =</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"localhost"</span>,</span>
-<span id="cb13-10">  <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">port =</span> <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">5432</span>  <span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># The default PostgreSQL port is 5432</span></span>
-<span id="cb13-11">)</span></code></pre></div>
-</div>
-</section>
-<section id="disconnect" class="level4">
-<h4 class="anchored" data-anchor-id="disconnect"><strong>Disconnect</strong></h4>
-<p>Lastly, it’s a good practice to disconnect from you database when you are done querying it to free up your laptop resources.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># disconnect from MS SQL</span></span>
-<span id="cb14-2"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">dbDisconnect</span>(mssql_con)</span>
-<span id="cb14-3"></span>
-<span id="cb14-4"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># disconnect from MS SQL</span></span>
-<span id="cb14-5"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">dbDisconnect</span>(postgresql_con)</span>
-<span id="cb14-6"></span>
-<span id="cb14-7"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">dbDisconnect</span>(postgresql_con2)</span></code></pre></div>
-</div>
-
-
-</section>
-
- ]]></description>
+  <title></title>
+  <link>https://mj-datatunes.com/posts/Query DBs from R_Quarto/</link>
+  <description><![CDATA[ undefined ]]></description>
   <category>R</category>
   <category>Quarto</category>
   <category>MS SQL</category>
   <category>PostegreSQL</category>
-  <guid>https://mj-datatunes.com/posts/Query DBs from R_Quarto/index.html</guid>
+  <guid>https://mj-datatunes.com/posts/Query DBs from R_Quarto/</guid>
   <pubDate>Sun, 26 Nov 2023 21:00:00 GMT</pubDate>
 </item>
 <item>
-  <title>Renaming Columns with Python Dictionaries</title>
+  <title></title>
   <dc:creator>Maangi Josiah</dc:creator>
-  <link>https://mj-datatunes.com/posts/Renaming Columns/index.html</link>
-  <description><![CDATA[ 
-
-
-
-
-<section id="import-the-required-libraries" class="level4">
-<h4 class="anchored" data-anchor-id="import-the-required-libraries"><strong>Import the required libraries</strong></h4>
-<div class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> pandas <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">as</span> pd</span>
-<span id="cb1-2"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> os</span></code></pre></div>
-</div>
-</section>
-<section id="create-a-simple-customer-information-data-frame" class="level4">
-<h4 class="anchored" data-anchor-id="create-a-simple-customer-information-data-frame"><strong>Create a simple customer information data-frame</strong></h4>
-<div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">data <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> {</span>
-<span id="cb2-2">    <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'given name'</span>: [<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Josiah'</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Fred'</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Julie'</span>],</span>
-<span id="cb2-3">    <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'family name'</span>: [<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Maangi'</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Juma'</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Musau'</span>],</span>
-<span id="cb2-4">    <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'phone'</span>:[<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">25471234</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">25472345</span>,<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">25473456</span>],</span>
-<span id="cb2-5">    <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'email'</span>: [<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'josiah@gml.com'</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'fred@gml.com'</span>,<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'julie@gml.com'</span>],</span>
-<span id="cb2-6">    <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'sex'</span>: [<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'M'</span>,<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'M'</span>,<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'F'</span>],</span>
-<span id="cb2-7">    <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'town'</span>: [<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Nairobi'</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Kisumu'</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Mombasa'</span>]</span>
-<span id="cb2-8">}</span>
-<span id="cb2-9"></span>
-<span id="cb2-10">customer_df <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> pd.DataFrame(data)</span></code></pre></div>
-</div>
-<p>Here is how our small data-frame looks:</p>
-<div class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">customer_df</span></code></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<div>
-
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">given name</th>
-<th data-quarto-table-cell-role="th">family name</th>
-<th data-quarto-table-cell-role="th">phone</th>
-<th data-quarto-table-cell-role="th">email</th>
-<th data-quarto-table-cell-role="th">sex</th>
-<th data-quarto-table-cell-role="th">town</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>Josiah</td>
-<td>Maangi</td>
-<td>25471234</td>
-<td>josiah@gml.com</td>
-<td>M</td>
-<td>Nairobi</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>Fred</td>
-<td>Juma</td>
-<td>25472345</td>
-<td>fred@gml.com</td>
-<td>M</td>
-<td>Kisumu</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>Julie</td>
-<td>Musau</td>
-<td>25473456</td>
-<td>julie@gml.com</td>
-<td>F</td>
-<td>Mombasa</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-</section>
-<section id="make-a-copy-of-customer_df" class="level4">
-<h4 class="anchored" data-anchor-id="make-a-copy-of-customer_df"><strong>Make a copy of customer_df</strong></h4>
-<div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">customer_df_copy <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> customer_df.copy()</span></code></pre></div>
-</div>
-</section>
-<section id="how-i-want-to-rename-my-columns" class="level4">
-<h4 class="anchored" data-anchor-id="how-i-want-to-rename-my-columns"><strong>How I want to Rename my columns</strong></h4>
-<p>I will rename my columns as below:</p>
-<ul>
-<li><em>given name</em> to <em>First Name</em></li>
-<li><em>family name</em> to <em>Last Name</em></li>
-<li><em>town</em> to <em>City</em></li>
-</ul>
-</section>
-<section id="rename-a-single-column" class="level4">
-<h4 class="anchored" data-anchor-id="rename-a-single-column"><strong>Rename a single column</strong></h4>
-<p>To rename columns, we use the rename function from pandas as follows.</p>
-<p>The column we want to rename(given name) will be on the left, and the new name we want to assign to this column(Family Name) will be on the right. The two names should be separated by a colon.</p>
-<p>The <em>inplace = True</em> argument means this change happen with our customer_df_copy.</p>
-<div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1">customer_df_copy.rename(columns <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> {<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'given name'</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Family Name'</span>}, inplace <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">True</span>)</span></code></pre></div>
-</div>
-</section>
-<section id="rename-multiple-columns-at-once" class="level4">
-<h4 class="anchored" data-anchor-id="rename-multiple-columns-at-once"><strong>Rename multiple columns at once</strong></h4>
-<div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1">customer_df_copy.rename(columns <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> {<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'given name'</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Family Name'</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'town'</span>: <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'City'</span>}, inplace <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">True</span>)</span></code></pre></div>
-</div>
-</section>
-<section id="create-a-dictionary-of-column-mappings-from-an-excelcsv-file" class="level4">
-<h4 class="anchored" data-anchor-id="create-a-dictionary-of-column-mappings-from-an-excelcsv-file"><strong>Create a dictionary of column mappings from an excel/csv file</strong></h4>
-<p>Imagine a scenario where you have to rename about 15 columns every time you receive files from a given customers. Using the above approach is not only manual but prone to errors. Since this is a repetitive process;</p>
-<ul>
-<li><p>I will create a file with customer - company column mappings,</p></li>
-<li><p>convert it into a dictionary, and</p></li>
-<li><p>use it to rename files as below.</p></li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://mj-datatunes.com/posts/Renaming Columns/images/col_mappings-01.png" class="img-fluid figure-img" width="558"></p>
-<figcaption class="figure-caption"><em>client to company column mapping</em></figcaption>
-</figure>
-</div>
-<p>Code</p>
-<div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># reading in my column mapping file</span></span>
-<span id="cb7-2">mapping <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> pd.read_excel(<span class="vs" style="color: #20794D;
-background-color: null;
-font-style: inherit;">r"C:\Users\ADMIN\Downloads\col_mapping.xlsx"</span>)</span>
-<span id="cb7-3"></span>
-<span id="cb7-4"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># creating a data dictionary</span></span>
-<span id="cb7-5">col_mapping_dict <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> mapping.set_index(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'customer_details'</span>)[<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'company_mapping'</span>].to_dict()</span></code></pre></div>
-</div>
-</section>
-<section id="rename-using-provided-column-mappings" class="level4">
-<h4 class="anchored" data-anchor-id="rename-using-provided-column-mappings"><strong>Rename using provided column mappings</strong></h4>
-<div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># I will make a copy of my customer_df again</span></span>
-<span id="cb8-2">renamed_df <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> customer_df.copy()</span>
-<span id="cb8-3"></span>
-<span id="cb8-4"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">#then rename it</span></span>
-<span id="cb8-5">renamed_df.rename(columns <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> col_mapping_dict, inplace <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">True</span>)</span></code></pre></div>
-</div>
-<p>Here is a view of our customer_df vs our renamed_df.</p>
-<div id="tbl-example" class="cell tbl-parent quarto-layout-panel anchored" data-execution_count="9">
-<div class="panel-caption table-caption">
-<p>Table&nbsp;1: Master to renamed</p>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div id="tbl-example-1" class="quarto-layout-cell quarto-layout-cell-subref anchored" data-ref-parent="tbl-example" style="flex-basis: 50.0%;justify-content: center;">
-<table class="table table-sm table-striped small">
-<caption>(a) customer_df</caption>
-<colgroup>
-<col style="width: 19%">
-<col style="width: 21%">
-<col style="width: 14%">
-<col style="width: 22%">
-<col style="width: 9%">
-<col style="width: 12%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">given name</th>
-<th style="text-align: left;">family name</th>
-<th style="text-align: right;">phone</th>
-<th style="text-align: left;">email</th>
-<th style="text-align: left;">sex</th>
-<th style="text-align: left;">town</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Josiah</td>
-<td style="text-align: left;">Maangi</td>
-<td style="text-align: right;">25471234</td>
-<td style="text-align: left;">josiah@gml.com</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Nairobi</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Fred</td>
-<td style="text-align: left;">Juma</td>
-<td style="text-align: right;">25472345</td>
-<td style="text-align: left;">fred@gml.com</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Kisumu</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Julie</td>
-<td style="text-align: left;">Musau</td>
-<td style="text-align: right;">25473456</td>
-<td style="text-align: left;">julie@gml.com</td>
-<td style="text-align: left;">F</td>
-<td style="text-align: left;">Mombasa</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="tbl-example-2" class="quarto-layout-cell quarto-layout-cell-subref anchored" data-ref-parent="tbl-example" style="flex-basis: 50.0%;justify-content: center;">
-<table class="table table-sm table-striped small">
-<caption>(b) renamed_df</caption>
-<colgroup>
-<col style="width: 18%">
-<col style="width: 17%">
-<col style="width: 16%">
-<col style="width: 22%">
-<col style="width: 13%">
-<col style="width: 12%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">First Name</th>
-<th style="text-align: left;">Last Name</th>
-<th style="text-align: right;">Phone No</th>
-<th style="text-align: left;">Email address</th>
-<th style="text-align: left;">Gender</th>
-<th style="text-align: left;">City</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Josiah</td>
-<td style="text-align: left;">Maangi</td>
-<td style="text-align: right;">25471234</td>
-<td style="text-align: left;">josiah@gml.com</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Nairobi</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Fred</td>
-<td style="text-align: left;">Juma</td>
-<td style="text-align: right;">25472345</td>
-<td style="text-align: left;">fred@gml.com</td>
-<td style="text-align: left;">M</td>
-<td style="text-align: left;">Kisumu</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Julie</td>
-<td style="text-align: left;">Musau</td>
-<td style="text-align: right;">25473456</td>
-<td style="text-align: left;">julie@gml.com</td>
-<td style="text-align: left;">F</td>
-<td style="text-align: left;">Mombasa</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-
-
-</section>
-
- ]]></description>
+  <link>https://mj-datatunes.com/posts/Renaming Columns/</link>
+  <description><![CDATA[ undefined ]]></description>
   <category>Python</category>
-  <guid>https://mj-datatunes.com/posts/Renaming Columns/index.html</guid>
+  <guid>https://mj-datatunes.com/posts/Renaming Columns/</guid>
   <pubDate>Sun, 05 Nov 2023 21:00:00 GMT</pubDate>
 </item>
 <item>
   <title>We are live Buana!</title>
   <dc:creator>Maangi Josiah</dc:creator>
-  <link>https://mj-datatunes.com/posts/we_are_live/index.html</link>
+  <link>https://mj-datatunes.com/posts/we_are_live/</link>
   <description><![CDATA[ 
+
 
 
 
@@ -1387,8 +524,16 @@ font-style: inherit;">True</span>)</span></code></pre></div>
 
  ]]></description>
   <category>news</category>
-  <guid>https://mj-datatunes.com/posts/we_are_live/index.html</guid>
+  <guid>https://mj-datatunes.com/posts/we_are_live/</guid>
   <pubDate>Wed, 01 Nov 2023 21:00:00 GMT</pubDate>
+</item>
+<item>
+  <title></title>
+  <link>https://mj-datatunes.com/posts/Olympic Medals dashboard/</link>
+  <description><![CDATA[ undefined ]]></description>
+  <category>Quarto Dashboard</category>
+  <guid>https://mj-datatunes.com/posts/Olympic Medals dashboard/</guid>
+  <pubDate>Tue, 21 Jan 2025 12:19:43 GMT</pubDate>
 </item>
 </channel>
 </rss>

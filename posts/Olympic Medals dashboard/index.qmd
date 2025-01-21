@@ -1,0 +1,309 @@
+---
+title: "2024 Paris Olympics"
+format: 
+    dashboard:
+        orientation: columns
+        logo: olympics-logo.svg
+categories: [Quarto Dashboard]
+---
+
+
+```{css}
+.page-title {
+text-align: center; /* Center text /
+margin: 0; / Remove default margins */
+}
+h1 {
+text-align: center; /* Center all h1 titles */
+}
+```
+
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(reactable)
+library(reactablefmtr)
+library(readr)
+library(htmltools)
+library(ggplot2)
+```
+
+```{r}
+
+# Updated custom rendering functions for medal headers
+medal_header <- function(medal) {
+  if (medal == "Gold Medal") {
+    tags$div(
+      style = "width: 24px; height: 24px; border-radius: 50%; background-color: #fcc861; display: flex; justify-content: center; align-items: center;", title = "Gold Medals",
+      tags$span("G", style = "font-weight: normal; color: black;")
+    )
+  } else if (medal == "Silver Medal") {
+    tags$div(
+      style = "width: 24px; height: 24px; border-radius: 50%; background-color: #e5e5e5; display: flex; justify-content: center; align-items: center;",title = "Silver Medals",
+      tags$span("S", style = "font-weight: normal; color: black;")
+    )
+  } else if (medal == "Bronze Medal") {
+    tags$div(
+      style = "width: 24px; height: 24px; border-radius: 50%; background-color: #dcb386; display: flex; justify-content: center; align-items: center;", title = "Bronze Medals",
+      tags$span("B", style = "font-weight: normal; color: black;")
+    )
+  } else if (medal == "Total Medals") {
+    tags$div(
+      style = "display: flex; flex-direction: column; align-items: center;",
+      tags$div(
+        style = "display: flex; justify-content: center; align-items: center;",
+        tags$div(
+          style = "width: 12px; height: 12px; border-radius: 50%; background-color: #fcc861; margin-right: 2px;"
+        ),
+        tags$div(
+          style = "width: 12px; height: 12px; border-radius: 50%; background-color: #e5e5e5;"
+        )
+      ),
+      tags$div(
+        style = "width: 12px; height: 12px; border-radius: 50%; background-color: #dcb386; margin-top: 2px;"
+      ), title = "Total Medals",
+    )
+  } else {
+    medal
+  }
+}
+
+medal_render <- function(value) {
+  if (value == "Gold Medal") {
+    tags$div(
+      style = "width: 22px; height: 22px; border-radius: 50%; background-color: #fcc861; display: flex; justify-content: center; align-items: center;",
+      tags$span("G", style = "font-weight: normal; color: black;")
+    )
+  } else if (value == "Silver Medal") {
+    tags$div(
+      style = "width: 22px; height: 22px; border-radius: 50%; background-color: #e5e5e5; display: flex; justify-content: center; align-items: center;",
+      tags$span("S", style = "font-weight: normal; color: black;")
+    )
+  } else if (value == "Bronze Medal") {
+    tags$div(
+      style = "width: 22px; height: 22px; border-radius: 50%; background-color: #dcb386; display: flex; justify-content: center; align-items: center;",
+      tags$span("B", style = "font-weight: normal; color: black;")
+    )
+  } else {
+    value
+  }
+}
+
+# custom css function to hide columns headers
+generate_css <- function() {
+  "
+  .inner-table .rt-thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+  "
+}
+
+
+```
+
+```{r}
+medals <- read_csv("medals.csv") |> 
+  select(-medal_code, 
+         -medal_date, 
+         -medal_date, 
+         -country_long, 
+         -url_event, 
+         -code) |> as_tibble()
+
+
+country_level <- medals |> 
+  count(country, medal_type, name = 'Medal_Count') |>
+  group_by(country) |> 
+  mutate(Total_Medals = sum(Medal_Count)) |> 
+  pivot_wider(names_from = 'medal_type', values_from = 'Medal_Count', values_fill = 0) |> 
+  select(country, `Gold Medal`, `Silver Medal`, `Bronze Medal`, Total_Medals) |> 
+  arrange(desc(Total_Medals)) 
+
+discipline_level  <- medals |> 
+  count(country, discipline, medal_type, name = 'Medal_Count') |>
+  group_by(country, discipline) |> 
+  mutate(Total_Medals = sum(Medal_Count)) |> 
+  pivot_wider(names_from = 'medal_type', values_from = 'Medal_Count', values_fill = 0) |> 
+  select(country, discipline, `Gold Medal`, `Silver Medal`, `Bronze Medal`, Total_Medals) |> 
+  arrange(desc(Total_Medals)) 
+
+player_level <- medals |> select(country, discipline, event, name, medal_type) |> 
+  mutate(
+    medal_type = factor(medal_type, levels = c("Gold Medal", "Silver Medal", "Bronze Medal")),
+    event_player = paste0(event, ' ', name))|> 
+  arrange(medal_type) |> 
+  select(country, discipline, event_player, medal_type)
+
+medal_table <- reactable(
+  country_level,
+  defaultPageSize = 100,
+  compact = TRUE,
+  striped = TRUE,
+  columns = list(
+    country = colDef(filterable = TRUE),
+    'Gold Medal'  = colDef(header = medal_header("Gold Medal")),
+    "Silver Medal"  = colDef(header = medal_header("Silver Medal" )),
+    "Bronze Medal" = colDef(header = medal_header("Bronze Medal")),
+    "Total_Medals" = colDef(header = medal_header("Total Medals"))  
+  ),
+  
+  details = function(index) {
+    #selected_country <- country_level$country[index]
+    disc_level <- discipline_level[discipline_level$country == country_level$country[index],]
+    
+    htmltools::div(
+      style = "padding: 0;",
+      tags$style(
+        HTML(generate_css())  # Pass the CSS function result here
+      ),
+      reactable(
+        disc_level,
+        defaultPageSize = 100,
+        compact = TRUE,
+        class = "inner-table",
+        rowClass = function(index) {
+          return(NULL)},
+        striped = TRUE,
+        columns = list(
+          #discipline = colDef(filterable = TRUE),
+          country = colDef(show = FALSE)),
+        
+        details = function(index){
+          #selected_disc <- discipline_level$discipline[index]
+          ply_level <- player_level[player_level$country == disc_level$country[index] & 
+                                      player_level$discipline == disc_level$discipline[index],]
+          htmltools::div(
+            reactable(
+              ply_level,
+              defaultPageSize = 100,
+              compact = TRUE,
+              #striped = TRUE,
+              columns = list(
+                #event_player = colDef(filterable = TRUE),
+                medal_type = colDef(style = list(width = "2%", align = 'right', `padding-left` = "60px",
+                                                 `min-width` = "75px",`max-width` = "90px"),
+                                    cell = function(value) medal_render(value)),
+                #event_player = colDef(width = 100),
+                country = colDef(show = FALSE),
+                discipline = colDef(show = FALSE),
+                event_player = colDef(style = list(width = "80%",`padding-left` = "60px"))
+              )
+            ) # enclosed in 2nd div 
+          )
+        }
+      ) # enclosed in first div
+    )
+  }
+)
+```
+
+# Medal Table {width="100%"}
+
+```{r, message=FALSE, warning=FALSE, results='asis'}
+
+html_output <- tagList(
+  div(
+    style = "width: 70%; length: 80%; margin: 0 auto;",
+    medal_table
+  )
+)
+
+html_output
+```
+
+# Medallist
+
+```{r}
+medallists <- read_csv("medallists.csv") |> 
+  select(country_code,
+         name, 
+         discipline,
+         event, 
+         medal_type) |> as_tibble()
+
+
+player_medals_counts <- medallists |> 
+   count(name,country_code, medal_type, name = 'Medal_Count') |>
+  group_by(country_code, name) |> 
+    mutate(Total_Medals = sum(Medal_Count)) |> 
+  pivot_wider(names_from = 'medal_type', 
+              values_from = 'Medal_Count', values_fill = 0) |> 
+  select(country_code, name, 
+         `Gold Medal`, `Silver Medal`, `Bronze Medal`, Total_Medals) |> 
+  arrange(desc(Total_Medals)) |> 
+  filter(!is.na(country_code)) |> 
+  rename(Medalist = name)
+
+player_medals <- medallists |>  
+  filter(!is.na(country_code)) |> 
+  transmute(
+    country_code,
+    name,
+     discipline_event = paste0("<b>", discipline, "</b>", "   ",event),
+     medal_type = factor(medal_type, levels = c("Gold Medal", "Silver Medal", "Bronze Medal")),
+  ) |> 
+   arrange(medal_type) 
+  
+
+medalist_table <- reactable(
+  player_medals_counts,
+   defaultPageSize = 100,
+  compact = TRUE,
+  striped = TRUE,
+  columns = list(
+    Medalist = colDef(filterable = TRUE),
+    'Gold Medal'  = colDef(header = medal_header("Gold Medal")),
+    "Silver Medal"  = colDef(header = medal_header("Silver Medal" )),
+    "Bronze Medal" = colDef(header = medal_header("Bronze Medal")),
+    "Total_Medals" = colDef(header = medal_header("Total Medals"))  
+  ),
+  details = function(index){
+    player_meds <- player_medals[player_medals$name == player_medals_counts$Medalist[index]
+                                 &
+                    player_medals$country_code == player_medals_counts$country_code[index],]
+    
+    htmltools::div(
+      style = "padding: 0;",
+      tags$style(
+        HTML(generate_css())  # Pass the CSS function result here
+      ),
+    
+    reactable(
+       player_meds,
+        defaultPageSize = 6,
+        compact = TRUE,
+        class = "inner-table",
+        rowClass = function(index) {
+          return(NULL)},
+        columns = list(
+                medal_type = colDef(style = list(width = "2%", align = 'right', `padding-left` = "60px",
+                                                 `min-width` = "75px",`max-width` = "90px"),
+                                    cell = function(value) medal_render(value)),
+                country_code = colDef(show = FALSE),
+                name = colDef(show = FALSE),
+                discipline_event = colDef(html = TRUE, style = list(width = "80%",`padding-left` = "80px"))
+              )
+    ))
+  }
+)
+```
+
+```{r, message=FALSE, warning=FALSE, results='asis'}
+
+html_output2 <- tagList(
+  div(
+    style = "width: 70%; margin: 0 auto;",
+    medalist_table
+  )
+)
+
+html_output2
+```
