@@ -8,17 +8,6 @@ categories: [Quarto Dashboard]
 ---
 
 
-```{css}
-.page-title {
-text-align: center; /* Center text /
-margin: 0; / Remove default margins */
-}
-h1 {
-text-align: center; /* Center all h1 titles */
-}
-```
-
-
 ```{r}
 library(dplyr)
 library(tidyr)
